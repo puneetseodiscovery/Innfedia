@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mandy.innfedia">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Activities.CustmerActivity"></activity>
+        <activity android:name=".Activities.OtpActivity" />
+        <activity android:name=".Activities.YourOrderDetailsActivity" />
+        <activity
+            android:name=".Activities.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.AddAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.AddressActivity"
+            android:parentActivityName=".Activities.ActivityCart"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCGlfDp6qPfEGc71tvwynC-X0dOXWpkIQs" />
+
+        <activity
+            android:name=".Activities.ActivityProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ActivityCart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ActivityOrderList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.SignupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.SplashScreen"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

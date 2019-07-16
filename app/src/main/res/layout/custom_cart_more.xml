@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/custom_productImage"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image4" />
+
+
+    <TextView
+        android:id="@+id/custom_producName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/custom_productImage"
+        android:layout_marginTop="3dp"
+        android:maxWidth="140dp"
+        android:text="helo amit here to buy"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text" />
+
+    <RatingBar
+        android:id="@+id/custom_productRating"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/custom_producName"
+        android:layout_marginTop="3dp"
+        android:numStars="5"
+        android:padding="2dp"
+        android:stepSize="1" />
+
+    <TextView
+        android:id="@+id/custom_productRating_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/custom_producName"
+        android:layout_marginLeft="@dimen/padding"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@id/custom_productRating"
+        android:text="15"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text" />
+
+    <TextView
+        android:id="@+id/custom_productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/custom_productRating_number"
+        android:layout_marginTop="3dp"
+        android:text="From 550$"
+        android:textColor="@color/red"
+        android:textSize="@dimen/text" />
+
+    <Button
+        android:id="@+id/custom_productDilvery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/custom_productPrice"
+        android:layout_marginTop="3dp"
+        android:background="@color/recycler"
+        android:padding="@dimen/padding"
+        android:text="Add  to Cart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text" />
+</RelativeLayout>

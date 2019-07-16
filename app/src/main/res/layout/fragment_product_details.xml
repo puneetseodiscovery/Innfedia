@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ProductDetailsFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tooolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/topMargin"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/topMargin"
+                android:layout_marginRight="@dimen/topMargin">
+
+                <TextView
+                    android:id="@+id/txtproductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product Name"
+                    android:textColor="@color/bule"
+                    android:textSize="@dimen/text" />
+
+
+                <RatingBar
+                    android:id="@+id/ratingbar"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/txtratingNumber"
+                    android:numStars="5"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:stepSize="1" />
+
+                <TextView
+
+                    android:id="@+id/txtratingNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:text="71"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtSubProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/topMargin"
+                android:layout_marginRight="@dimen/topMargin"
+                android:text="Sub producat name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text" />
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginLeft="@dimen/topMargin"
+                android:layout_marginRight="@dimen/topMargin">
+
+            </android.support.v4.view.ViewPager>
+
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/circleindecator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/padding">
+
+            </me.relex.circleindicator.CircleIndicator>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/topMargin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price: "
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/text" />
+
+                <RelativeLayout
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:background="@color/gray" />
+
+
+                    <TextView
+                        android:id="@+id/txtMRP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="999.00"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/text" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/txtPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:gravity="center"
+                    android:text="899.00"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="@dimen/topMargin"
+                android:background="@color/recycler" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/topMargin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Color:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Black"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/topMargin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Size:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Small"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/recycler" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/topMargin"
+                android:text="Descripation"
+                android:textColor="@color/black"
+                android:textSize="@dimen/subheading" />
+
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                android:id="@+id/perview_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/topMargin"
+                android:text="@string/perviewDescrition"
+                app:colorClickableText="@color/bule"
+                app:trimCollapsedText="Read less"
+                app:trimExpandedText="Read more"
+                app:trimLength="150"
+                app:trimMode="trimModeLength" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/topMargin"
+                android:text="Features"
+                android:textColor="@color/black"
+                android:textSize="@dimen/subheading" />
+
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                android:id="@+id/txtFeture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/topMargin"
+                android:text="@string/perviewDescrition"
+                app:colorClickableText="@color/bule"
+                app:trimCollapsedText="Read less"
+                app:trimExpandedText="Read more"
+                app:trimLength="150"
+                app:trimMode="trimModeLength" />
+
+
+            <Button
+                android:id="@+id/btnAddCart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/recycler"
+                android:text="Add to Cart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text" />
+
+
+            <Button
+                android:id="@+id/btnBuynow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/topMargin"
+                android:background="@color/recycler"
+                android:text="Buy Now"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="@dimen/topMargin"
+                android:background="@color/recycler" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/topMargin"
+                android:layout_marginTop="@dimen/topMargin"
+                android:text="See Related items"
+                android:textColor="@color/black"
+                android:textSize="@dimen/subheading" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerRelated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</FrameLayout>

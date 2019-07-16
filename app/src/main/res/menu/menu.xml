@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/gp_one"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:title="Home" />
+       
+        <item
+            android:id="@+id/myorderlist"
+            android:title="My OrderList" />
+        <item
+            android:id="@+id/cart"
+            android:title="My Cart" />
+    </group>
+
+
+    <group
+        android:id="@+id/gp_two"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/my_profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/term"
+            android:title="Term's &amp; Condition" />
+        <item
+            android:id="@+id/customer"
+            android:title="Customer Service" />
+    </group>
+
+    <item
+        android:id="@+id/my_logout"
+        android:title="Logout" />
+
+</menu>

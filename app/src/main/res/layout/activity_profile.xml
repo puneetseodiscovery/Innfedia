@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Activities.ActivityProfile">
+
+    <include
+        android:id="@+id/tooolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tooolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="@dimen/topMargin"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image7"
+                app:riv_oval="true" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding"
+                android:gravity="center"
+                android:hint="Full Name"
+                android:padding="@dimen/padding"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding"
+                android:gravity="center"
+                android:hint="Email (opational)"
+                android:padding="@dimen/padding"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding"
+                android:editable="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="Phone No."
+                android:padding="@dimen/padding"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text" />
+
+            <Button
+                android:id="@+id/btnProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/topMargin"
+                android:text="Edit Profile"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
