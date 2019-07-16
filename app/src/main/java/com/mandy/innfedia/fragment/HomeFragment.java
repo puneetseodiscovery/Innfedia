@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     ViewPager viewPager;
     RecyclerView recyclerViewCategory, recyclerViewNew, recyclerViewDiscount, recyclerViewBestSell;
     FragmentManager manager;
+    Context context;
 
 
     public HomeFragment() {
@@ -133,19 +134,20 @@ public class HomeFragment extends Fragment {
 
     // timer for change image
     private class SliderTimer extends TimerTask {
-
         @Override
         public void run() {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (viewPager.getCurrentItem() < arrayImage.size() - 1) {
-                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-                    } else {
-                        viewPager.setCurrentItem(0);
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (viewPager.getCurrentItem() < arrayImage.size() - 1) {
+                            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                        } else {
+                            viewPager.setCurrentItem(0);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -192,4 +194,9 @@ public class HomeFragment extends Fragment {
         arrayList.clear();
     }
 
+    @Override
+    public void onAttach(Context context1) {
+        super.onAttach(context1);
+        context = context1;
+    }
 }

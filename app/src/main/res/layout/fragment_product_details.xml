@@ -259,7 +259,7 @@
                 android:id="@+id/btnAddCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/recycler"
+                android:background="@color/yellow"
                 android:text="Add to Cart"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text" />
@@ -270,7 +270,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/topMargin"
-                android:background="@color/recycler"
+                android:background="@color/yellow"
                 android:text="Buy Now"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text" />

@@ -3,44 +3,37 @@ package com.mandy.innfedia;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.mandy.innfedia.Activities.ActivityCart;
-import com.mandy.innfedia.Activities.ActivityOrderList;
-import com.mandy.innfedia.Activities.ActivityProfile;
+import com.mandy.innfedia.Activities.CustmerActivity;
 import com.mandy.innfedia.Activities.LoginActivity;
-import com.mandy.innfedia.adapter.CategoryAdapter;
-import com.mandy.innfedia.adapter.DiscountedAdapter;
-import com.mandy.innfedia.adapter.NewArrivalAdapter;
-import com.mandy.innfedia.adapter.ViewPagerAdapter;
-import com.mandy.innfedia.adapter.main2.ExploreMoreAdapter;
 import com.mandy.innfedia.fragment.HomeFragment;
-
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import com.mandy.innfedia.fragment.MyCartFragment;
+import com.mandy.innfedia.fragment.OrderListFragment;
+import com.mandy.innfedia.fragment.ProductDetailsFragment;
+import com.mandy.innfedia.fragment.ProfileFragment;
+import com.mandy.innfedia.fragment.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
+    ImageView toolbarSearch, toolbarCart;
+    TextView txtcartNumber;
     ActionBarDrawerToggle mToggle;
     FragmentManager manager;
+    FragmentTransaction transaction;
 
 
     @Override
@@ -63,13 +56,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        ;
 
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, new HomeFragment());
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.framelayout, new HomeFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
 
         onNavigationClick();
+
+        toolbarSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.beginTransaction().replace(R.id.framelayout, new SearchFragment()).commit();
+            }
+        });
 
 
     }
@@ -80,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.Drawer_navigation);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerNavigation);
         toolbar = (Toolbar) findViewById(R.id.tooolbar);
+        toolbarSearch = (ImageView) findViewById(R.id.toolbarSearch);
+        toolbarCart = (ImageView) findViewById(R.id.toolbarCart);
+        txtcartNumber = (TextView) findViewById(R.id.toolbarCartNumber);
     }
 
 
@@ -108,21 +113,36 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.myorderlist:
                         drawerLayout.closeDrawers();
-                        startActivity(new Intent(getApplicationContext(), ActivityOrderList.class));
+                        transaction = manager.beginTransaction();
+                        transaction.replace(R.id.framelayout, new OrderListFragment());
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                         break;
                     case R.id.cart:
                         drawerLayout.closeDrawers();
-                        startActivity(new Intent(getApplicationContext(), ActivityCart.class));
+                        transaction = manager.beginTransaction();
+                        transaction.replace(R.id.framelayout, new MyCartFragment());
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                         break;
                     case R.id.my_profile:
                         drawerLayout.closeDrawers();
-                        startActivity(new Intent(getApplicationContext(), ActivityProfile.class));
+                        transaction = manager.beginTransaction();
+                        transaction.replace(R.id.framelayout, new ProfileFragment());
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                         break;
 
                     case R.id.my_logout:
                         drawerLayout.closeDrawers();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        finish();
+
+                        break;
+
+                    case R.id.customer:
+                        drawerLayout.closeDrawers();
+                        startActivity(new Intent(getApplicationContext(), CustmerActivity.class));
+
                         break;
                 }
 

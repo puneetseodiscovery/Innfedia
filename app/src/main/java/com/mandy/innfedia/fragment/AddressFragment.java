@@ -1,41 +1,46 @@
-package com.mandy.innfedia.Activities;
+package com.mandy.innfedia.fragment;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mandy.innfedia.Activities.AddAddressActivity;
+import com.mandy.innfedia.Activities.PaymentActivity;
 import com.mandy.innfedia.AddressAdapter;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.SpacesItemDecoration;
 
 import java.util.ArrayList;
 
-public class AddressActivity extends AppCompatActivity {
-
-    Toolbar toolbar;
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class AddressFragment extends Fragment {
     RecyclerView recyclerView;
     Button btnAddAddress, btnConfirm;
     AddressAdapter addressAdapter;
+    View view;
 
-    @SuppressLint("RestrictedApi")
+    public AddressFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_address);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_address, container, false);
 
-        // find all id
         init();
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Address");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
 
         //set data into recylcer view
@@ -45,25 +50,25 @@ public class AddressActivity extends AppCompatActivity {
         btnAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AddAddressActivity.class));
+                startActivity(new Intent(getContext(), AddAddressActivity.class));
             }
         });
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(getApplicationContext(), PaymentActivity.class));
+                startActivity(new Intent(getContext(), PaymentActivity.class));
             }
         });
 
+
+        return view;
     }
 
     private void init() {
-        toolbar = (Toolbar) findViewById(R.id.tooolbar);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_address);
-        btnAddAddress = (Button) findViewById(R.id.add_address_btn);
-        btnConfirm = (Button) findViewById(R.id.continue_btn);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_address);
+        btnAddAddress = (Button) view.findViewById(R.id.add_address_btn);
+        btnConfirm = (Button) view.findViewById(R.id.continue_btn);
     }
 
 
@@ -74,8 +79,8 @@ public class AddressActivity extends AppCompatActivity {
                 "\n amitpanday51@gmail.com");
         arrayList.add("Mandy web design D-152, 140301 \n mohali ,pubjab");
 
-        addressAdapter = new AddressAdapter(this, arrayList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        addressAdapter = new AddressAdapter(getContext(), arrayList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(addressAdapter);
         recyclerView.addItemDecoration(new SpacesItemDecoration(15));
@@ -89,9 +94,4 @@ public class AddressActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }

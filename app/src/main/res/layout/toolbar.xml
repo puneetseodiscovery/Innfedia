@@ -19,17 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/padding"
-            android:layout_toLeftOf="@id/toolbarHome"
+            android:layout_toLeftOf="@id/toolbarCart"
             android:src="@drawable/ic_searching" />
 
-        <ImageView
-            android:id="@+id/toolbarHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/padding"
-            android:layout_toLeftOf="@id/toolbarCart"
-            android:src="@drawable/ic_house" />
 
         <ImageView
             android:id="@+id/toolbarCart"

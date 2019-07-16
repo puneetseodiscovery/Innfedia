@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/topMargin"
             android:text="Verify otp"
+            android:background="@color/yellow"
             android:textColor="@color/black"
             android:textSize="@dimen/text"
             android:textStyle="bold" />

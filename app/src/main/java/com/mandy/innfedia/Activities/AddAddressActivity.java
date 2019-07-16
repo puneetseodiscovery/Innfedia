@@ -1,6 +1,8 @@
 package com.mandy.innfedia.Activities;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,12 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mandy.innfedia.R;
+import com.mandy.innfedia.fragment.AddressFragment;
 
 public class AddAddressActivity extends AppCompatActivity {
 
     EditText edtName, edtPhone, edtPostcode, edtCity, edtState, edtFlat, edtNear;
     Button button;
     Toolbar toolbar;
+    FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,8 @@ public class AddAddressActivity extends AppCompatActivity {
         //find id here's
         init();
 
+        manager = getSupportFragmentManager();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Create Address");
@@ -31,7 +37,10 @@ public class AddAddressActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AddressActivity.class));
+
+                FragmentTransaction transaction =manager.beginTransaction();
+                transaction.replace(R.id.framelayout,new AddressFragment());
+                transaction.commit();
             }
         });
 

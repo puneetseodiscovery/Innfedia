@@ -3,14 +3,16 @@ package com.mandy.innfedia.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mandy.innfedia.Activities.YourOrderDetailsActivity;
 import com.mandy.innfedia.R;
+import com.mandy.innfedia.fragment.YourOrderDetailsFragment;
 
 import java.util.ArrayList;
 
@@ -19,10 +21,12 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
     Context context;
     ArrayList<String> arrayList = new ArrayList<>();
     String des;
+    FragmentManager manager;
 
-    public YourOrderAdapter(Context context, ArrayList<String> arrayList) {
+    public YourOrderAdapter(Context context, ArrayList<String> arrayList, FragmentManager manager) {
         this.context = context;
         this.arrayList = arrayList;
+        this.manager = manager;
     }
 
     @NonNull
@@ -51,7 +55,11 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, YourOrderDetailsActivity.class));
+
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.framelayout, new YourOrderDetailsFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

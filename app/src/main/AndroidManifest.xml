@@ -3,6 +3,7 @@
     package="com.mandy.innfedia">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -14,40 +15,26 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.CustmerActivity"></activity>
         <activity android:name=".Activities.OtpActivity" />
-        <activity android:name=".Activities.YourOrderDetailsActivity" />
         <activity
             android:name=".Activities.PaymentActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AddAddressActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.AddressActivity"
-            android:parentActivityName=".Activities.ActivityCart"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCGlfDp6qPfEGc71tvwynC-X0dOXWpkIQs" />
-
-        <activity
-            android:name=".Activities.ActivityProfile"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.ActivityCart"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.ActivityOrderList"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SignupActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activities.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".Activities.SplashScreen"
             android:screenOrientation="portrait">
