@@ -3,7 +3,7 @@
     android:id="@+id/tooolbar"
     android:layout_width="match_parent"
     android:layout_height="55dp"
-    android:background="@color/white"
+    android:background="@color/toolbar"
     android:elevation="3dp">
 
 
@@ -11,6 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/topMargin">
+
+        <TextView
+            android:id="@+id/txtToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="@dimen/subheading"
+            android:textStyle="bold" />
 
 
         <ImageView
@@ -40,7 +49,7 @@
             android:gravity="center"
             android:paddingBottom="@dimen/padding"
             android:text="0"
-            android:textColor="@color/black"
+            android:textColor="@color/yellow"
             android:textSize="@dimen/text" />
 
 

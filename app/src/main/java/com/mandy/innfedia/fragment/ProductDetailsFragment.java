@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.SpacesItemDecoration;
 import com.mandy.innfedia.adapter.ColorAdapter;
@@ -35,6 +36,7 @@ public class ProductDetailsFragment extends Fragment {
     TextView textColor, textSize;
     View view;
     FragmentManager manager;
+    ArrayList<Integer> arrayImage = new ArrayList<>();
 
     public ProductDetailsFragment() {
         // Required empty public constructor
@@ -52,6 +54,17 @@ public class ProductDetailsFragment extends Fragment {
         init();
 
 
+        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.menjeans);
+        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.womantop);
+        arrayImage.add(R.drawable.kid);
+        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.menjeans);
+        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.womantop);
+        arrayImage.add(R.drawable.kid);
+
         //set the image data
         setViewPager();
 
@@ -64,6 +77,7 @@ public class ProductDetailsFragment extends Fragment {
         //see the related item
         setRelatedData();
 
+        MainActivity.textView.setText("Product Details");
 
         return view;
 
@@ -146,7 +160,7 @@ public class ProductDetailsFragment extends Fragment {
     private void setRelatedData() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewSeeRelated.setLayoutManager(linearLayoutManager);
-        SeeRelatedItemAdapter adapter = new SeeRelatedItemAdapter(getContext(), manager);
+        SeeRelatedItemAdapter adapter = new SeeRelatedItemAdapter(getContext(),arrayImage, manager);
         recyclerViewSeeRelated.setAdapter(adapter);
         recyclerViewSeeRelated.addItemDecoration(new SpacesItemDecoration(15));
     }

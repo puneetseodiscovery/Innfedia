@@ -71,8 +71,7 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:layout_marginLeft="@dimen/topMargin"
-                android:layout_marginRight="@dimen/topMargin">
+                android:layout_marginTop="@dimen/topMargin">
 
             </android.support.v4.view.ViewPager>
 
@@ -259,6 +258,7 @@
                 android:id="@+id/btnAddCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/topMargin"
                 android:background="@color/yellow"
                 android:text="Add to Cart"
                 android:textColor="@color/black"
@@ -269,7 +269,8 @@
                 android:id="@+id/btnBuynow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/topMargin"
+                android:layout_marginLeft="@dimen/topMargin"
+                android:layout_marginRight="@dimen/topMargin"
                 android:background="@color/yellow"
                 android:text="Buy Now"
                 android:textColor="@color/black"

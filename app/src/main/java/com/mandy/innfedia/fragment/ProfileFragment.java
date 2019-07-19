@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
 
 /**
@@ -31,6 +32,7 @@ public class ProfileFragment extends Fragment {
 
         init();
 
+        MainActivity.textView.setText("My Profile");
         return view;
     }
 

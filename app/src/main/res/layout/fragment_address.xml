@@ -6,11 +6,12 @@
     tools:context=".fragment.AddressFragment">
 
     <android.support.v7.widget.RecyclerView
-
         android:id="@+id/recycler_address"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/linear5">
+        android:layout_above="@id/linear5"
+        android:layout_marginTop="@dimen/padding">
 
     </android.support.v7.widget.RecyclerView>
 

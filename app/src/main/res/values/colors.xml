@@ -6,10 +6,11 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="gary">#b1b1b1</color>
-    <color name="recycler">#F6F8FA</color>
+    <color name="recycler">#EAEDED</color>
     <color name="gray">#b1b1b1</color>
     <color name="bule">#4076E5</color>
     <color name="red">#E54640</color>
     <color name="green">#25AD06</color>
     <color name="yellow">#F1C558</color>
+    <color name="toolbar">#253442</color>
 </resources>

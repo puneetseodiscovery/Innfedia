@@ -33,6 +33,7 @@
         android:layout_gravity="left"
         android:background="@color/white"
         app:itemTextColor="@color/black"
+        app:headerLayout="@layout/header"
         app:menu="@menu/menu">
 
     </android.support.design.widget.NavigationView>

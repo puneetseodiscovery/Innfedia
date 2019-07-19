@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle mToggle;
     FragmentManager manager;
     FragmentTransaction transaction;
+    public static TextView textView;
 
 
     @Override
@@ -53,11 +55,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        textView.setText("Infedia");
 
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        ;
+
+        LayoutInflater.from(this).inflate(R.layout.header, navigationView);
 
         transaction = manager.beginTransaction();
         transaction.replace(R.id.framelayout, new HomeFragment());
@@ -69,7 +73,21 @@ public class MainActivity extends AppCompatActivity {
         toolbarSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                manager.beginTransaction().replace(R.id.framelayout, new SearchFragment()).commit();
+                FragmentTransaction transaction1 = manager.beginTransaction();
+                transaction1.replace(R.id.framelayout, new SearchFragment());
+                transaction1.addToBackStack(null);
+                transaction1.commit();
+            }
+        });
+
+
+        toolbarCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction1 = manager.beginTransaction();
+                transaction1.replace(R.id.framelayout, new MyCartFragment());
+                transaction1.addToBackStack(null);
+                transaction1.commit();
             }
         });
 
@@ -85,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         toolbarSearch = (ImageView) findViewById(R.id.toolbarSearch);
         toolbarCart = (ImageView) findViewById(R.id.toolbarCart);
         txtcartNumber = (TextView) findViewById(R.id.toolbarCartNumber);
+        textView = (TextView) findViewById(R.id.txtToolbar);
+
     }
 
 
@@ -136,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.my_logout:
                         drawerLayout.closeDrawers();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        finish();
 
                         break;
 

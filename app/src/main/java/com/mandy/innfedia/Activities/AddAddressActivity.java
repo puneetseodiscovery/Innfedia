@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.fragment.AddressFragment;
@@ -18,6 +19,7 @@ public class AddAddressActivity extends AppCompatActivity {
     EditText edtName, edtPhone, edtPostcode, edtCity, edtState, edtFlat, edtNear;
     Button button;
     Toolbar toolbar;
+    TextView textView;
     FragmentManager manager;
 
     @Override
@@ -28,18 +30,22 @@ public class AddAddressActivity extends AppCompatActivity {
         //find id here's
         init();
 
+
         manager = getSupportFragmentManager();
+
+        init();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Create Address");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        textView.setText("Add Address");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                FragmentTransaction transaction =manager.beginTransaction();
-                transaction.replace(R.id.framelayout,new AddressFragment());
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.framelayout, new AddressFragment());
                 transaction.commit();
             }
         });
@@ -48,6 +54,7 @@ public class AddAddressActivity extends AppCompatActivity {
 
     private void init() {
         toolbar = (Toolbar) findViewById(R.id.tooolbar);
+        textView = (TextView) findViewById(R.id.textView);
         edtName = (EditText) findViewById(R.id.edtName);
         edtPhone = (EditText) findViewById(R.id.edtMobile);
         edtPostcode = (EditText) findViewById(R.id.edtPostcode);

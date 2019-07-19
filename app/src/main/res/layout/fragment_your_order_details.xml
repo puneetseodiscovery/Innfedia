@@ -73,51 +73,58 @@
                     android:textColor="@color/gray"
                     android:textSize="@dimen/text" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/topMargin"
                     android:background="@drawable/custom_size_close"
-                    android:drawableRight="@drawable/ic_arrow_down"
-                    android:padding="@dimen/padding"
-                    android:text="Give Feedback"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/topMargin"
+                        android:padding="@dimen/padding"
+                        android:text="Give Feedback"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text" />
 
 
-                <RatingBar
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/padding"
-                    android:numStars="5"
-                    android:rating="4"
-                    android:stepSize="1" />
+                    <RatingBar
+                        style="@style/Widget.AppCompat.RatingBar.Indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/padding"
+                        android:numStars="5"
+                        android:rating="4"
+                        android:stepSize="1" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding"
-                    android:background="@drawable/custom_size_close"
-                    android:gravity="start"
-                    android:hint="Comment here"
-                    android:inputType="text"
-                    android:minWidth="@dimen/topMargin"
-                    android:padding="@dimen/padding"
-                    android:textSize="@dimen/text" />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding"
+                        android:background="@drawable/custom_size_close"
+                        android:gravity="start"
+                        android:hint="Comment here"
+                        android:inputType="text"
+                        android:minHeight="70dp"
+                        android:padding="@dimen/padding"
+                        android:textSize="@dimen/text" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/padding"
-                    android:background="@color/yellow"
-                    android:padding="@dimen/padding"
-                    android:text="Rate now"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/padding"
+                        android:background="@color/yellow"
+                        android:padding="@dimen/padding"
+                        android:text="Rate now"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text" />
+
+                </LinearLayout>
 
 
             </LinearLayout>

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.SpacesItemDecoration;
 import com.mandy.innfedia.adapter.main2.BottomWearAdapter;
@@ -43,6 +44,7 @@ public class Home2Fragment extends Fragment {
 
         init();
 
+        MainActivity.textView.setText("Infedia");
         //array data
         setArrayList();
 
@@ -80,12 +82,12 @@ public class Home2Fragment extends Fragment {
         arrayList.add("Suit & Blazers");
         arrayList.add("Kurtas");
 
-        arrayImage.add(R.drawable.image1);
-        arrayImage.add(R.drawable.image2);
-        arrayImage.add(R.drawable.image3);
-        arrayImage.add(R.drawable.image4);
-        arrayImage.add(R.drawable.image5);
-        arrayImage.add(R.drawable.image6);
+        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.womantop);
+        arrayImage.add(R.drawable.kid);
+        arrayImage.add(R.drawable.jewellery);
+        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.womantop);
     }
 
     //set the top reyclerView item
@@ -94,7 +96,7 @@ public class Home2Fragment extends Fragment {
         recyclerViewTop.setLayoutManager(layoutManager);
         recyclerViewTop.addItemDecoration(new SpacesItemDecoration(15));
 
-        TopWearAdapter adapter = new TopWearAdapter(getContext(), arrayList, arrayImage,manager);
+        TopWearAdapter adapter = new TopWearAdapter(getContext(), arrayList, arrayImage, manager);
         recyclerViewTop.setAdapter(adapter);
     }
 
@@ -105,7 +107,7 @@ public class Home2Fragment extends Fragment {
         recyclerViewBottom.setLayoutManager(layoutManager);
         recyclerViewBottom.addItemDecoration(new SpacesItemDecoration(15));
 
-        BottomWearAdapter adapter = new BottomWearAdapter(getContext(), arrayList, arrayImage,manager);
+        BottomWearAdapter adapter = new BottomWearAdapter(getContext(), arrayList, arrayImage, manager);
         recyclerViewBottom.setAdapter(adapter);
     }
 
@@ -117,7 +119,7 @@ public class Home2Fragment extends Fragment {
         recyclerViewExplore.setLayoutManager(layoutManager);
         recyclerViewExplore.addItemDecoration(new SpacesItemDecoration(15));
 
-        ExploreMoreAdapter adapter = new ExploreMoreAdapter(getContext(), arrayList, arrayImage,manager);
+        ExploreMoreAdapter adapter = new ExploreMoreAdapter(getContext(), arrayList, arrayImage, manager);
         recyclerViewExplore.setAdapter(adapter);
     }
 

@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:padding="@dimen/padding">
+    android:paddingLeft="@dimen/padding"
+    android:paddingRight="@dimen/padding"
+    android:paddingBottom="@dimen/padding">
 
     <TextView
         android:id="@+id/address_radio_btn"
@@ -11,10 +13,18 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:button="@null"
-        android:drawableRight="@drawable/radio2"
+        android:drawableLeft="@drawable/ic_check"
+        android:drawablePadding="@dimen/padding"
         android:gravity="start|center"
         android:text="first"
         android:textColor="@color/black"
         android:textSize="@dimen/text" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/address_radio_btn"
+        android:layout_marginTop="@dimen/padding"
+        android:background="@color/gray" />
 
 </RelativeLayout>

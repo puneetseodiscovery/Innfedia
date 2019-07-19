@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.mandy.innfedia.Activities.AddAddressActivity;
 import com.mandy.innfedia.Activities.PaymentActivity;
 import com.mandy.innfedia.AddressAdapter;
+import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.SpacesItemDecoration;
 
@@ -42,6 +43,7 @@ public class AddressFragment extends Fragment {
 
         init();
 
+        MainActivity.textView.setText("Select Address");
 
         //set data into recylcer view
         setData();
@@ -75,15 +77,13 @@ public class AddressFragment extends Fragment {
     //set data into recyclerView
     private void setData() {
         final ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("House no:40, Balongi,Mohali,Punjab" +
-                "\n amitpanday51@gmail.com");
-        arrayList.add("Mandy web design D-152, 140301 \n mohali ,pubjab");
+        arrayList.add("House no:40, Phase - 8, sector - 71, Balongi Mohali,Punjab 140301");
+        arrayList.add("Mandy web design,#B-100,Phase - 8, sector - 71 Mohali,Punjab 140300");
 
         addressAdapter = new AddressAdapter(getContext(), arrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(addressAdapter);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(15));
 
         addressAdapter.setOnItemClick(new AddressAdapter.OnItemClick() {
             @Override

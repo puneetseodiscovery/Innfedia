@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.SpacesItemDecoration;
 import com.mandy.innfedia.adapter.YourOrderAdapter;
@@ -39,6 +40,8 @@ public class OrderListFragment extends Fragment {
 
         init();
 
+        MainActivity.textView.setText("My Order List");
+
         manager = getActivity().getSupportFragmentManager();
 
         arrayList.add("Dispatch");
@@ -62,6 +65,5 @@ public class OrderListFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(10));
     }
 }

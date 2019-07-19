@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.SpacesItemDecoration;
 import com.mandy.innfedia.adapter.ProductListAdapter;
@@ -23,7 +24,6 @@ public class ProductListFragment extends Fragment {
 
     View view;
     RecyclerView recyclerView;
-    ArrayList<String> arrayList = new ArrayList<>();
     ArrayList<Integer> arrayImage = new ArrayList<>();
     FragmentManager manager;
 
@@ -39,10 +39,24 @@ public class ProductListFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_product_list, container, false);
 
 
+        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.menjeans);
+        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.womantop);
+        arrayImage.add(R.drawable.kid);
+        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.menjeans);
+        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.womantop);
+        arrayImage.add(R.drawable.kid);
+
+
         recyclerView = view.findViewById(R.id.recyclerProduct);
         manager = getActivity().getSupportFragmentManager();
 
         setData();
+
+        MainActivity.textView.setText("Product's List");
 
         return view;
 
@@ -53,7 +67,7 @@ public class ProductListFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        ProductListAdapter adapter = new ProductListAdapter(getContext(), manager);
+        ProductListAdapter adapter = new ProductListAdapter(getContext(),arrayImage ,manager);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new SpacesItemDecoration(15));
     }

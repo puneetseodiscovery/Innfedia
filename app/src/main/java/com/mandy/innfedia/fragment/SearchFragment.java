@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        MainActivity.textView.setText("Search Here");
         return view;
     }
 

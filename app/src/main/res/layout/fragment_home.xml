@@ -52,15 +52,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/topMargin"
+                android:layout_marginTop="@dimen/margin"
                 android:background="@color/white"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/topMargin"
-                    android:layout_marginTop="@dimen/topMargin"
+                    android:layout_margin="@dimen/topMargin"
                     android:text="New Arrivals"
                     android:textColor="@color/black"
                     android:textSize="@dimen/heading"
@@ -69,8 +68,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerNew"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/topMargin">
+                    android:layout_height="wrap_content">
 
                 </android.support.v7.widget.RecyclerView>
 
@@ -81,15 +79,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/topMargin"
+                android:layout_marginTop="@dimen/margin"
                 android:background="@color/white"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/topMargin"
-                    android:layout_marginTop="@dimen/topMargin"
+                    android:layout_margin="@dimen/topMargin"
                     android:text="Discounted Items"
                     android:textColor="@color/black"
                     android:textSize="@dimen/heading"
@@ -98,8 +95,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerDiscount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/topMargin">
+                    android:layout_height="wrap_content">
 
                 </android.support.v7.widget.RecyclerView>
 
@@ -109,15 +105,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/topMargin"
+                android:layout_marginTop="@dimen/margin"
                 android:background="@color/white"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/topMargin"
-                    android:layout_marginTop="@dimen/topMargin"
+                    android:layout_margin="@dimen/topMargin"
                     android:text="Best Sell"
                     android:textColor="@color/black"
                     android:textSize="@dimen/heading"
@@ -126,8 +121,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerBestSell"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/topMargin">
+                    android:layout_height="wrap_content">
 
                 </android.support.v7.widget.RecyclerView>
 

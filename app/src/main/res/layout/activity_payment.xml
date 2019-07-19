@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/tooolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar2" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrool_view"
@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/topMargin"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
 

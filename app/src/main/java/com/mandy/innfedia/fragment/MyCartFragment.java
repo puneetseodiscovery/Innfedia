@@ -14,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.SpacesItemDecoration;
 import com.mandy.innfedia.adapter.CartAdapter;
 import com.mandy.innfedia.adapter.CartMoreAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +31,7 @@ public class MyCartFragment extends Fragment {
     Button button;
     View view;
     FragmentManager manager;
+    ArrayList<Integer> arrayImage = new ArrayList<>();
 
     public MyCartFragment() {
         // Required empty public constructor
@@ -42,6 +46,19 @@ public class MyCartFragment extends Fragment {
 
         init();
 
+        MainActivity.textView.setText("My Cart");
+
+
+        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.menjeans);
+        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.womantop);
+        arrayImage.add(R.drawable.kid);
+        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.menjeans);
+        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.womantop);
+        arrayImage.add(R.drawable.kid);
 
         //set the cart data
         setCart();
@@ -98,7 +115,7 @@ public class MyCartFragment extends Fragment {
 
 
     private void setMore() {
-        CartMoreAdapter adapter = new CartMoreAdapter(getContext(), manager);
+        CartMoreAdapter adapter = new CartMoreAdapter(getContext(), arrayImage, manager);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewMore.setLayoutManager(linearLayoutManager);
         recyclerViewMore.setAdapter(adapter);
@@ -107,7 +124,7 @@ public class MyCartFragment extends Fragment {
 
 
     private void setTop() {
-        CartMoreAdapter adapter = new CartMoreAdapter(getContext(), manager);
+        CartMoreAdapter adapter = new CartMoreAdapter(getContext(), arrayImage, manager);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewTop.setLayoutManager(linearLayoutManager);
         recyclerViewTop.setAdapter(adapter);

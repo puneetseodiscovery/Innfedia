@@ -1,6 +1,7 @@
 package com.mandy.innfedia.Activities;
 
 import android.graphics.Color;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,8 +24,10 @@ import com.mandy.innfedia.adapter.PaymentItemsAdapter;
 public class PaymentActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView textView;
     RecyclerView recyclerView;
     TextView txtPrivicy;
+    NestedScrollView nestedScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +40,17 @@ public class PaymentActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Payment");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
 
+        textView.setText("Payment");
 
         SpannableString ss = new SpannableString(getResources().getString(R.string.policy));
-//click for privicy
+
+        //click for privicy
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                Toast.makeText(PaymentActivity.this, "privicy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentActivity.this, "", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -87,6 +92,8 @@ public class PaymentActivity extends AppCompatActivity {
         txtPrivicy = (TextView) findViewById(R.id.textPolicy);
         recyclerView = (RecyclerView) findViewById(R.id.reyclerPayment);
         toolbar = (Toolbar) findViewById(R.id.tooolbar);
+        textView = (TextView) findViewById(R.id.textView);
+        nestedScrollView = (NestedScrollView) findViewById(R.id.scrool_view);
     }
 
 

@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.SpacesItemDecoration;
@@ -38,6 +39,7 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerViewCategory, recyclerViewNew, recyclerViewDiscount, recyclerViewBestSell;
     FragmentManager manager;
     Context context;
+
 
 
     public HomeFragment() {
@@ -109,10 +111,10 @@ public class HomeFragment extends Fragment {
         arrayList.add("Kids");
         arrayList.add("Jewelleries");
 
-        arrayImage.add(R.drawable.image1);
-        arrayImage.add(R.drawable.image2);
-        arrayImage.add(R.drawable.image3);
-        arrayImage.add(R.drawable.image4);
+        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.womantop);
+        arrayImage.add(R.drawable.kid);
+        arrayImage.add(R.drawable.jewellery);
     }
 
 
@@ -199,4 +201,5 @@ public class HomeFragment extends Fragment {
         super.onAttach(context1);
         context = context1;
     }
+
 }

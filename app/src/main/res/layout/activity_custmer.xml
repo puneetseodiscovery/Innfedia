@@ -7,14 +7,9 @@
     android:background="@color/white"
     tools:context=".Activities.CustmerActivity">
 
-    <android.support.v7.widget.Toolbar
+    <include
         android:id="@+id/tooolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="3dp">
-
-    </android.support.v7.widget.Toolbar>
+        layout="@layout/toolbar2" />
 
 
     <LinearLayout
@@ -49,26 +44,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/padding"
-                    android:text="Email : "
+                    android:text="Phone : "
                     android:textColor="@color/black"
                     android:textSize="@dimen/text" />
 
                 <TextView
-                    android:id="@+id/txtEmail1"
-                    android:layout_width="match_parent"
+                    android:id="@+id/txtPhone1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:autoLink="email"
+                    android:autoLink="phone"
                     android:padding="@dimen/padding"
-                    android:text="Amitpanday451@mail.com "
+                    android:text="887241846"
                     android:textColor="@color/bule"
-                    android:textColorLink="@color/bule"
                     android:textSize="@dimen/text" />
+
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +75,7 @@
                     android:textSize="@dimen/text" />
 
                 <TextView
-                    android:id="@+id/txtPhone1"
+                    android:id="@+id/txtPhone2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="phone"
@@ -112,7 +103,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/topMargin"
-            android:background="@drawable/custom_size_close"
             android:orientation="vertical">
 
             <LinearLayout
@@ -129,47 +119,37 @@
                     android:textSize="@dimen/text" />
 
                 <TextView
-                    android:id="@+id/txtEmail2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="email"
                     android:padding="@dimen/padding"
-                    android:text="Amitpanday451@mail.com "
-                    android:textColor="@color/bule"
+                    android:text="amitpanday451@gmail.com"
                     android:textColorLink="@color/bule"
                     android:textSize="@dimen/text" />
+
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
-
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/edtComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@drawable/custom_size_close"
+                android:gravity="start"
+                android:hint="Comment here.."
+                android:inputType="textMultiLine"
+                android:minHeight="150dp"
+                android:padding="@dimen/padding"
+                android:textSize="@dimen/text" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/padding"
-                    android:text="Phone : "
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text" />
-
-                <TextView
-                    android:id="@+id/txtPhone2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autoLink="phone"
-                    android:padding="@dimen/padding"
-                    android:text="887241846"
-                    android:textColor="@color/bule"
-                    android:textSize="@dimen/text" />
-
-            </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/padding"
+                android:background="@color/yellow"
+                android:padding="@dimen/padding"
+                android:text="Send mail"
+                android:textSize="@dimen/text" />
 
         </LinearLayout>
 

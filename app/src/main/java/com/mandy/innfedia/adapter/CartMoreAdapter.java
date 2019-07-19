@@ -7,16 +7,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.mandy.innfedia.R;
+
+import java.util.ArrayList;
 
 public class CartMoreAdapter extends RecyclerView.Adapter<CartMoreAdapter.ViewHolder> {
 
     Context context;
     FragmentManager manager;
+    ArrayList<Integer> arrayList = new ArrayList<>();
 
-    public CartMoreAdapter(Context context, FragmentManager manager) {
+    public CartMoreAdapter(Context context, ArrayList<Integer> arrayList, FragmentManager manager) {
         this.context = context;
+        this.arrayList = arrayList;
         this.manager = manager;
     }
 
@@ -30,17 +35,20 @@ public class CartMoreAdapter extends RecyclerView.Adapter<CartMoreAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-
+        viewHolder.imageView.setImageResource(arrayList.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return 15;
+        return arrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            imageView = itemView.findViewById(R.id.custom_productImage);
         }
     }
 }

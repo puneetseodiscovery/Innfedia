@@ -8,18 +8,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.fragment.ProductDetailsFragment;
+
+import java.util.ArrayList;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
     Context context;
     FragmentManager manager;
+    ArrayList<Integer> arrayList = new ArrayList<>();
 
 
-    public ProductListAdapter(Context context, FragmentManager manager) {
+    public ProductListAdapter(Context context, ArrayList<Integer> arrayList, FragmentManager manager) {
         this.context = context;
+        this.arrayList = arrayList;
         this.manager = manager;
     }
 
@@ -34,6 +39,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
+        viewHolder.imageView.setImageResource(arrayList.get(i));
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,12 +56,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public int getItemCount() {
-        return 12;
+        return arrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            imageView = itemView.findViewById(R.id.custom_productImage);
         }
     }
 }

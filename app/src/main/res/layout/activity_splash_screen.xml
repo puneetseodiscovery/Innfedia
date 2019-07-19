@@ -14,12 +14,15 @@
         android:layout_height="match_parent"
         android:src="@drawable/ic_mall" />
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/logo" />
+        android:background="@null"
+        android:elevation="1dp"
+        android:src="@drawable/logo"
+        app:riv_oval="true" />
 
     <TextView
         android:id="@+id/text"

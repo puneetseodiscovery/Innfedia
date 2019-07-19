@@ -45,7 +45,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.textView.setText(arrayList.get(i));
         if (pos == i) {
-            viewHolder.textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.radio, 0);
+            viewHolder.textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check,0, 0,  0);
             if (itemClick != null) {
                 int po = i;
                 if (po != RecyclerView.NO_POSITION) {
@@ -53,7 +53,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                 }
             }
         } else {
-            viewHolder.textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.radio2, 0);
+            viewHolder.textView.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_check2,0, 0, 0);
         }
 
         viewHolder.textView.setOnClickListener(new View.OnClickListener() {

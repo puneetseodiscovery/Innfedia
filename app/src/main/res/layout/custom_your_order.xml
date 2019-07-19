@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/custom_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/padding"
         android:scaleType="centerCrop"
-        android:src="@drawable/image7" />
+        android:src="@drawable/image7"
+        app:riv_corner_radius="2dp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -27,7 +29,7 @@
             android:id="@+id/txtData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Arriving 10july -12 july"
+            android:text="Arriving  12 july"
             android:textColor="@color/green"
             android:textSize="@dimen/text"
             android:textStyle="bold" />
