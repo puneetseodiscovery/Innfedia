@@ -19,49 +19,64 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <com.makeramen.roundedimageview.RoundedImageView
+            <RelativeLayout
                 android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="@dimen/topMargin"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image7"
-                app:riv_oval="true" />
+                android:layout_height="wrap_content">
 
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="@dimen/topMargin"
+                    android:clickable="false"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image7"
+                    app:riv_oval="true" />
+
+            </RelativeLayout>
 
 
             <EditText
+                android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:hint="Full Name"
-                android:text="Amit pandey"
                 android:padding="@dimen/padding"
+                android:text="Amit pandey"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text" />
 
             <EditText
+                android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:hint="Email (opational)"
-                android:text="amitpanday451@gmail.com"
                 android:padding="@dimen/padding"
+                android:text="amitpanday451@gmail.com"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text" />
 
 
             <EditText
+                android:id="@+id/edtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
-                android:editable="false"
                 android:focusable="false"
-                android:text="8872451846"
+                android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:hint="Phone No."
                 android:padding="@dimen/padding"
+                android:text="8872451846"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text" />
 
@@ -70,9 +85,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/topMargin"
+                android:background="@color/yellow"
                 android:text="Update Profile"
                 android:textColor="@color/black"
+                android:textSize="@dimen/text"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/topMargin"
                 android:background="@color/yellow"
+                android:text="Edit Profile"
+                android:textColor="@color/black"
                 android:textSize="@dimen/text" />
 
 

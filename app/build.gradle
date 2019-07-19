@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.mandy.innfedia"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -49,11 +49,8 @@ dependencies {
     //read more textView
     implementation 'com.borjabravo:readmoretextview:2.0.1'
 
-
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation 'com.google.android.gms:play-services-places:16.0.0'
+//Custom camera
+    implementation 'com.zfdang.multiple-images-selector:multiple-images-selector:1.1.5'
 
 
 }
