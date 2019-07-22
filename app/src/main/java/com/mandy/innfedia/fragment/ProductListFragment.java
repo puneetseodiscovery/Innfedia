@@ -39,14 +39,14 @@ public class ProductListFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_product_list, container, false);
 
 
-        arrayImage.add(R.drawable.menshirt);
-        arrayImage.add(R.drawable.menjeans);
-        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.kid);
+        arrayImage.add(R.drawable.jwellery);
+        arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.kid);
-        arrayImage.add(R.drawable.menshirt);
-        arrayImage.add(R.drawable.menjeans);
-        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.kid);
+        arrayImage.add(R.drawable.jwellery);
+        arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.kid);
 

@@ -12,7 +12,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="@dimen/padding"
         android:scaleType="centerCrop"
-        android:src="@drawable/image7"
+        android:src="@drawable/kid"
         app:riv_corner_radius="2dp" />
 
     <RelativeLayout

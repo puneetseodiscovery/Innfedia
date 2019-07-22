@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class MyCartFragment extends Fragment {
     NestedScrollView scrollView;
     RecyclerView recyclerViewCart, recyclerViewMore, recyclerViewTop;
-    Button button;
+    Button button, btnProcced;
     View view;
     FragmentManager manager;
     ArrayList<Integer> arrayImage = new ArrayList<>();
@@ -49,14 +49,14 @@ public class MyCartFragment extends Fragment {
         MainActivity.textView.setText("My Cart");
 
 
-        arrayImage.add(R.drawable.menshirt);
-        arrayImage.add(R.drawable.menjeans);
-        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.jwellery);
+        arrayImage.add(R.drawable.women);
+        arrayImage.add(R.drawable.kid);
         arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.kid);
-        arrayImage.add(R.drawable.menshirt);
-        arrayImage.add(R.drawable.menjeans);
-        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.jwellery);
+        arrayImage.add(R.drawable.women);
+        arrayImage.add(R.drawable.jwellery);
         arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.kid);
 
@@ -82,6 +82,17 @@ public class MyCartFragment extends Fragment {
         });
 
 
+        btnProcced.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.framelayout, new AddressFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
         ((NestedScrollView) view.findViewById(R.id.scrool_view)).post(new Runnable() {
             public void run() {
                 ((NestedScrollView) view.findViewById(R.id.scrool_view)).fullScroll(View.FOCUS_UP);
@@ -96,6 +107,7 @@ public class MyCartFragment extends Fragment {
     private void init() {
         scrollView = (NestedScrollView) view.findViewById(R.id.scrool_view);
         button = (Button) view.findViewById(R.id.btnProced);
+        btnProcced = (Button) view.findViewById(R.id.btnProced2);
         recyclerViewCart = (RecyclerView) view.findViewById(R.id.recyclerCart);
         recyclerViewMore = (RecyclerView) view.findViewById(R.id.recyclerMore);
         recyclerViewTop = (RecyclerView) view.findViewById(R.id.recyclerTopPickup);

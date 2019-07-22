@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
     Context context;
 
 
-
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -111,10 +110,10 @@ public class HomeFragment extends Fragment {
         arrayList.add("Kids");
         arrayList.add("Jewelleries");
 
-        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.women);
         arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.kid);
-        arrayImage.add(R.drawable.jewellery);
+        arrayImage.add(R.drawable.jwellery);
     }
 
 

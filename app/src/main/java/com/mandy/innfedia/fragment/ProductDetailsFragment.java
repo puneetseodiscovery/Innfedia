@@ -1,9 +1,11 @@
 package com.mandy.innfedia.fragment;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.mandy.innfedia.MainActivity;
@@ -21,6 +27,7 @@ import com.mandy.innfedia.adapter.ColorAdapter;
 import com.mandy.innfedia.adapter.SizeAdapter;
 import com.mandy.innfedia.adapter.ViewPagerProductImageAdapter;
 import com.mandy.innfedia.adapter.main2.SeeRelatedItemAdapter;
+import com.mandy.innfedia.adapter.main2.ZoomingAdapter;
 
 import java.util.ArrayList;
 
@@ -37,6 +44,8 @@ public class ProductDetailsFragment extends Fragment {
     View view;
     FragmentManager manager;
     ArrayList<Integer> arrayImage = new ArrayList<>();
+    RatingBar ratingBar;
+    LinearLayout linearLayout;
 
     public ProductDetailsFragment() {
         // Required empty public constructor
@@ -54,14 +63,14 @@ public class ProductDetailsFragment extends Fragment {
         init();
 
 
-        arrayImage.add(R.drawable.menshirt);
-        arrayImage.add(R.drawable.menjeans);
-        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.women);
+        arrayImage.add(R.drawable.kid);
+        arrayImage.add(R.drawable.jwellery);
         arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.kid);
-        arrayImage.add(R.drawable.menshirt);
-        arrayImage.add(R.drawable.menjeans);
-        arrayImage.add(R.drawable.mentshirt);
+        arrayImage.add(R.drawable.kid);
+        arrayImage.add(R.drawable.jwellery);
+        arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.kid);
 
@@ -79,6 +88,17 @@ public class ProductDetailsFragment extends Fragment {
 
         MainActivity.textView.setText("Product Details");
 
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.framelayout, new CommentFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
         return view;
 
     }
@@ -92,6 +112,8 @@ public class ProductDetailsFragment extends Fragment {
         recyclerViewColor = (RecyclerView) view.findViewById(R.id.recyclerColor);
         textColor = (TextView) view.findViewById(R.id.txtColor);
         textSize = (TextView) view.findViewById(R.id.txtSize);
+        ratingBar = (RatingBar) view.findViewById(R.id.ratingbar);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linear);
 
     }
 
@@ -99,14 +121,13 @@ public class ProductDetailsFragment extends Fragment {
     //set private
     private void setViewPager() {
         ArrayList<Integer> arrayList = new ArrayList<>();
-
-        arrayList.add(R.drawable.image6);
-        arrayList.add(R.drawable.image1);
-        arrayList.add(R.drawable.image2);
-        arrayList.add(R.drawable.image3);
+        arrayList.add(R.drawable.womantop);
+        arrayList.add(R.drawable.women);
+        arrayList.add(R.drawable.kid);
         PagerAdapter adapter = new ViewPagerProductImageAdapter(getContext(), arrayList);
         viewPager.setAdapter(adapter);
         circleIndicator.setViewPager(viewPager);
+
 
     }
 
@@ -160,7 +181,7 @@ public class ProductDetailsFragment extends Fragment {
     private void setRelatedData() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewSeeRelated.setLayoutManager(linearLayoutManager);
-        SeeRelatedItemAdapter adapter = new SeeRelatedItemAdapter(getContext(),arrayImage, manager);
+        SeeRelatedItemAdapter adapter = new SeeRelatedItemAdapter(getContext(), arrayImage, manager);
         recyclerViewSeeRelated.setAdapter(adapter);
         recyclerViewSeeRelated.addItemDecoration(new SpacesItemDecoration(15));
     }

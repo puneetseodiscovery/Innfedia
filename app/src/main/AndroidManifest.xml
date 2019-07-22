@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mandy.innfedia">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -39,6 +40,11 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d8234e6b517958c46f3aa852b9d439ed3e223f06"
+            />
 
         <activity
             android:name="com.zfdang.multiple_images_selector.ImagesSelectorActivity"

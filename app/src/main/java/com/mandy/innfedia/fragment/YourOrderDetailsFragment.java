@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 
 import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
@@ -13,6 +14,7 @@ import com.mandy.innfedia.R;
 public class YourOrderDetailsFragment extends Fragment {
 
     View view;
+    RatingBar ratingBar;
 
     public YourOrderDetailsFragment() {
         // Required empty public constructor
@@ -27,7 +29,13 @@ public class YourOrderDetailsFragment extends Fragment {
 
         MainActivity.textView.setText("Order Details");
 
+        init();
+
         return view;
+    }
+
+    private void init() {
+        ratingBar = (RatingBar) view.findViewById(R.id.ratingbar);
     }
 
 }

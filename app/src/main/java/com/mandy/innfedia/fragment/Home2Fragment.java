@@ -82,11 +82,11 @@ public class Home2Fragment extends Fragment {
         arrayList.add("Suit & Blazers");
         arrayList.add("Kurtas");
 
-        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.women);
         arrayImage.add(R.drawable.womantop);
         arrayImage.add(R.drawable.kid);
-        arrayImage.add(R.drawable.jewellery);
-        arrayImage.add(R.drawable.menshirt);
+        arrayImage.add(R.drawable.jwellery);
+        arrayImage.add(R.drawable.kid);
         arrayImage.add(R.drawable.womantop);
     }
 

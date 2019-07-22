@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.mandy.innfedia.Activities.CustmerActivity;
 import com.mandy.innfedia.Activities.LoginActivity;
 import com.mandy.innfedia.fragment.HomeFragment;
@@ -31,6 +32,8 @@ import com.mandy.innfedia.fragment.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(MainActivity.this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
 

@@ -169,10 +169,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/topMargin"
-                android:background="#F1C558"
+                android:background="@color/bule"
                 android:text="Pay with Paytm"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text" />
 
         </LinearLayout>
