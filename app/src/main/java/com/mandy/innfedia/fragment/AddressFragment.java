@@ -4,20 +4,19 @@ package com.mandy.innfedia.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.mandy.innfedia.Activities.AddAddressActivity;
 import com.mandy.innfedia.Activities.PaymentActivity;
 import com.mandy.innfedia.AddressAdapter;
 import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.SpacesItemDecoration;
 
 import java.util.ArrayList;
 
@@ -52,7 +51,11 @@ public class AddressFragment extends Fragment {
         btnAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), AddAddressActivity.class));
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.framelayout, new AddAddressFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

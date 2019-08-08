@@ -4,128 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/recycler"
+    android:background="@color/white"
     tools:context=".Activities.LoginActivity">
 
 
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/gray"
-            android:orientation="horizontal">
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:elevation="1dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_above="@+id/card"
-        app:riv_oval="true"
-        android:background="@null"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo" />
-
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/card"
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_margin="@dimen/margin"
-        android:elevation="2dp"
-        app:cardCornerRadius="2dp"
-        app:cardUseCompatPadding="true">
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
 
-        <LinearLayout
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/padding"
+            android:text="@string/login"
+            android:textColor="@color/black"
+            android:textSize="@dimen/heading"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/edtPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/padding">
+            android:layout_marginTop="@dimen/topMargin"
+            android:hint="Phone"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/padding"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:textColor="@color/black"
-                android:textSize="@dimen/heading"
-                android:textStyle="bold" />
-
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/topMargin"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:padding="@dimen/padding"
-                android:textColor="@color/black" />
-
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/topMargin">
 
             <EditText
+                android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/topMargin"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:padding="@dimen/padding"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/text" />
 
-
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/margin"
-                android:background="@color/yellow"
-                android:text="Login" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <CheckBox
+                android:id="@+id/passwordshow"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin"
-                android:layout_marginRight="@dimen/margin"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/topMargin"
+                android:button="@drawable/passwordview" />
 
-                <TextView
+        </RelativeLayout>
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dont"
-                    android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/txtSignup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/padding"
-                    android:text="@string/signup"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:background="@color/yellow"
+            android:text="Login" />
 
-            </LinearLayout>
+        <TextView
+            android:id="@+id/txtForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/topMargin"
+            android:layout_marginBottom="@dimen/topMargin"
+            android:padding="@dimen/padding"
+            android:text="@string/forgot"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dont"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text" />
+
+            <TextView
+                android:id="@+id/txtSignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding"
+                android:paddingRight="@dimen/padding"
+                android:paddingBottom="@dimen/padding"
+                android:text="@string/signup"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
+
 
 </RelativeLayout>

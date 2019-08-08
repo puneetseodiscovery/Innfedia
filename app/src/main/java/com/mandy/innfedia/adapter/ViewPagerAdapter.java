@@ -4,7 +4,10 @@ package com.mandy.innfedia.adapter;
 import android.content.Context;
 
 
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -13,19 +16,28 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.mandy.innfedia.ApiModel.BannerApi;
 import com.mandy.innfedia.R;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
 public class ViewPagerAdapter extends PagerAdapter {
 
-    ArrayList<Integer> arrayList = new ArrayList<>();
+    ArrayList<BannerApi.Datum> arrayList = new ArrayList<>();
+    int pos = 0;
     Context context;
 
 
-    public ViewPagerAdapter(Context context, ArrayList<Integer> arrayList) {
+    public ViewPagerAdapter(Context context, ArrayList<BannerApi.Datum> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
+
 
     }
 
@@ -41,13 +53,27 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         ImageView trailimg;
+        final AVLoadingIndicatorView avLoadingIndicatorView;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemview = inflater.inflate(R.layout.item, container, false);
         trailimg = itemview.findViewById(R.id.trailImage);
+        avLoadingIndicatorView = itemview.findViewById(R.id.avi);
 
-        trailimg.setImageResource(arrayList.get(position));
+        Glide.with(context).load(arrayList.get(position).getBanner()).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                avLoadingIndicatorView.setVisibility(View.GONE);
+                return false;
+            }
+        }).into(trailimg);
+
 
         ((ViewPager) container).addView(itemview);
 

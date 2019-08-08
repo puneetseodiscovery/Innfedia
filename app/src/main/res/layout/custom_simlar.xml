@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="200dp"
 
@@ -15,8 +16,18 @@
             android:id="@+id/imageView"
             android:layout_width="100dp"
             android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/womantop" />
+            android:scaleType="centerCrop" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin"
+            android:visibility="visible"
+            app:indicatorColor="@color/yellow"
+            app:indicatorName="BallSpinFadeLoaderIndicator" />
 
         <TextView
             android:id="@+id/productName"
@@ -36,11 +47,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/productName"
             android:inputType="text"
+            android:maxWidth="140dp"
             android:padding="5dp"
             android:text="$ 205.0-199.0"
             android:textColor="@color/red"
-            android:textSize="@dimen/text"
-            android:maxWidth="140dp"/>
+            android:textSize="@dimen/text" />
 
     </RelativeLayout>
 

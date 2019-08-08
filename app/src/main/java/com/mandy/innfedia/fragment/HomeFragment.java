@@ -1,13 +1,17 @@
 package com.mandy.innfedia.fragment;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +19,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mandy.innfedia.ApiInterface;
+import com.mandy.innfedia.ApiModel.BannerApi;
+import com.mandy.innfedia.ApiModel.CategoryApi;
+import com.mandy.innfedia.ApiModel.DiscountedApi;
+import com.mandy.innfedia.ApiModel.NewArivalApi;
+import com.mandy.innfedia.ProgressBarClass;
 import com.mandy.innfedia.R;
+import com.mandy.innfedia.ServiceGenerator;
 import com.mandy.innfedia.SpacesItemDecoration;
 import com.mandy.innfedia.adapter.BestSellAdapter;
 import com.mandy.innfedia.adapter.CategoryAdapter;
@@ -29,10 +41,19 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class HomeFragment extends Fragment {
 
     View view;
+    ArrayList<CategoryApi.Datum> arrayCategory = new ArrayList<>();
+    ArrayList<NewArivalApi.Datum> arrayNewArrivals = new ArrayList<>();
+    ArrayList<DiscountedApi.Datum> arrayDiscounted = new ArrayList<>();
+    ArrayList<BannerApi.Datum> arrayBanner = new ArrayList<>();
+
     ArrayList<String> arrayList = new ArrayList<>();
     ArrayList<Integer> arrayImage = new ArrayList<>();
     ViewPager viewPager;
@@ -56,23 +77,27 @@ public class HomeFragment extends Fragment {
         init();
 
 
-        setArrayList();
+        ((NestedScrollView) view.findViewById(R.id.scrool_view)).post(new Runnable() {
+            public void run() {
+                ((NestedScrollView) view.findViewById(R.id.scrool_view)).fullScroll(View.FOCUS_UP);
+            }
+        });
 
-        //set data into recyclerView
-        setCategoryData();
+        //get category item
+        getCategory();
 
 
         //view pager offer list
-        setOfferImage();
+        getBanner();
 
         //view the new arival
-        setNewArivel();
+        getNewArrivals();
 
         //set the discount data
-        setDiscount();
+        getDiscounted();
 
-        //set data into best sell
-        setBestSell();
+//        //set data into best sell
+//        setBestSell();
 
 
         return view;
@@ -94,26 +119,9 @@ public class HomeFragment extends Fragment {
     private void setCategoryData() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewCategory.setLayoutManager(layoutManager);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(getContext(), arrayList);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(getContext(), arrayCategory, manager);
         recyclerViewCategory.setAdapter(categoryAdapter);
         categoryAdapter.notifyDataSetChanged();
-    }
-
-
-    private void setArrayList() {
-
-        clear();
-
-
-        arrayList.add("Men");
-        arrayList.add("Women");
-        arrayList.add("Kids");
-        arrayList.add("Jewelleries");
-
-        arrayImage.add(R.drawable.women);
-        arrayImage.add(R.drawable.womantop);
-        arrayImage.add(R.drawable.kid);
-        arrayImage.add(R.drawable.jwellery);
     }
 
 
@@ -124,9 +132,10 @@ public class HomeFragment extends Fragment {
         TabLayout tabLayout;
         tabLayout = view.findViewById(R.id.indicator);
 
-        adapter = new ViewPagerAdapter(getContext(), arrayImage);
+        adapter = new ViewPagerAdapter(context, arrayBanner);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager, true);
+
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
@@ -141,7 +150,7 @@ public class HomeFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (viewPager.getCurrentItem() < arrayImage.size() - 1) {
+                        if (viewPager.getCurrentItem() < arrayBanner.size() - 1) {
                             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
                         } else {
                             viewPager.setCurrentItem(0);
@@ -157,8 +166,7 @@ public class HomeFragment extends Fragment {
     private void setNewArivel() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewNew.setLayoutManager(layoutManager);
-
-        NewArrivalAdapter arrivalAdapter = new NewArrivalAdapter(getContext(), arrayList, arrayImage, manager);
+        NewArrivalAdapter arrivalAdapter = new NewArrivalAdapter(getContext(), arrayNewArrivals, manager);
         recyclerViewNew.setAdapter(arrivalAdapter);
         recyclerViewNew.addItemDecoration(new SpacesItemDecoration(15));
 
@@ -169,8 +177,7 @@ public class HomeFragment extends Fragment {
     private void setDiscount() {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewDiscount.setLayoutManager(layoutManager);
-
-        DiscountedAdapter discountedAdapter = new DiscountedAdapter(getContext(), arrayList, arrayImage, manager);
+        DiscountedAdapter discountedAdapter = new DiscountedAdapter(getContext(), arrayDiscounted, manager);
         recyclerViewDiscount.setAdapter(discountedAdapter);
         recyclerViewDiscount.addItemDecoration(new SpacesItemDecoration(15));
 
@@ -190,15 +197,152 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void clear() {
-        arrayImage.clear();
-        arrayList.clear();
-    }
-
     @Override
     public void onAttach(Context context1) {
         super.onAttach(context1);
         context = context1;
+    }
+
+
+    //get category
+    private void getCategory() {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<CategoryApi> call = apiInterface.getCategory();
+
+        final Dialog dialog = ProgressBarClass.showProgressDialog(context);
+        dialog.show();
+
+        call.enqueue(new Callback<CategoryApi>() {
+            @Override
+            public void onResponse(Call<CategoryApi> call, Response<CategoryApi> response) {
+                dialog.dismiss();
+                if (response.isSuccessful()) {
+                    arrayCategory.clear();
+                    if (response.body().getStatus().equals(200)) {
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            arrayCategory.add(response.body().getData().get(i));
+
+                            setCategoryData();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CategoryApi> call, Throwable t) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+
+    //get the new arivals data
+    private void getNewArrivals() {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<NewArivalApi> call = apiInterface.newArrivalsApi();
+
+        final Dialog dialog = ProgressBarClass.showProgressDialog(getContext());
+        dialog.show();
+
+        call.enqueue(new Callback<NewArivalApi>() {
+            @Override
+            public void onResponse(Call<NewArivalApi> call, Response<NewArivalApi> response) {
+                dialog.dismiss();
+                if (response.isSuccessful()) {
+                    arrayNewArrivals.clear();
+                    if (response.body().getStatus().equals(200)) {
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            arrayNewArrivals.add(response.body().getData().get(i));
+
+                            setNewArivel();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NewArivalApi> call, Throwable t) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    // get the discounted product
+    private void getDiscounted() {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<DiscountedApi> call = apiInterface.getDiscountedapi();
+
+        final Dialog dialog = ProgressBarClass.showProgressDialog(getContext());
+        dialog.show();
+
+        call.enqueue(new Callback<DiscountedApi>() {
+            @Override
+            public void onResponse(Call<DiscountedApi> call, Response<DiscountedApi> response) {
+                dialog.dismiss();
+                if (response.isSuccessful()) {
+                    arrayDiscounted.clear();
+                    if (response.body().getStatus().equals(200)) {
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            arrayDiscounted.add(response.body().getData().get(i));
+
+                            setDiscount();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DiscountedApi> call, Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // get the banner
+    private void getBanner() {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<BannerApi> call = apiInterface.getBanner();
+        final Dialog dialog = ProgressBarClass.showProgressDialog(context);
+        dialog.show();
+        call.enqueue(new Callback<BannerApi>() {
+            @Override
+            public void onResponse(Call<BannerApi> call, Response<BannerApi> response) {
+                dialog.dismiss();
+                if (response.isSuccessful()) {
+                    arrayBanner.clear();
+                    if (response.body().getStatus() == 200) {
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            arrayBanner.add(response.body().getData().get(i));
+                        }
+                        setOfferImage();
+
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BannerApi> call, Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

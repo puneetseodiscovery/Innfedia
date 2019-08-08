@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.fragment.ProductListFragment;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
@@ -52,6 +53,8 @@ public class BottomWearAdapter extends RecyclerView.Adapter<BottomWearAdapter.Vi
                 transaction.commit();
             }
         });
+
+
     }
 
     @Override
@@ -62,12 +65,14 @@ public class BottomWearAdapter extends RecyclerView.Adapter<BottomWearAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;
+        AVLoadingIndicatorView avLoadingIndicatorView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.dashText);
             imageView = itemView.findViewById(R.id.dashImage);
+            avLoadingIndicatorView = itemView.findViewById(R.id.avi);
         }
     }
 }

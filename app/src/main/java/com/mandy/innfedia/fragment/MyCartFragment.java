@@ -105,7 +105,7 @@ public class MyCartFragment extends Fragment {
 
 
     private void init() {
-        scrollView = (NestedScrollView) view.findViewById(R.id.scrool_view);
+
         button = (Button) view.findViewById(R.id.btnProced);
         btnProcced = (Button) view.findViewById(R.id.btnProced2);
         recyclerViewCart = (RecyclerView) view.findViewById(R.id.recyclerCart);

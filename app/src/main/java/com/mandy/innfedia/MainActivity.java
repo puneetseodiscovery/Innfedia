@@ -1,6 +1,7 @@
 package com.mandy.innfedia;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -173,9 +174,8 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.my_logout:
                         drawerLayout.closeDrawers();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        finish();
-
+                        Dialog dialog = UtilDialog.dialog(MainActivity.this, getResources().getString(R.string.logout), "Logout");
+                        dialog.show();
                         break;
 
                     case R.id.customer:

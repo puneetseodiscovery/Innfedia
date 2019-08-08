@@ -1,5 +1,6 @@
 package com.mandy.innfedia.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mandy.innfedia.R;
+import com.mandy.innfedia.UtilDialog;
 
 import java.util.ArrayList;
 
@@ -52,6 +55,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         });
 
 
+        viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = UtilDialog.dialog(context, context.getResources().getString(R.string.areyou), "Delete");
+                dialog.show();
+            }
+        });
+
 
     }
 
@@ -62,11 +73,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         Spinner spinner;
+        Button btnDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             spinner = itemView.findViewById(R.id.spinnner);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
 }

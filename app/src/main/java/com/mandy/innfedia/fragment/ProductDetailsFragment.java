@@ -27,7 +27,7 @@ import com.mandy.innfedia.adapter.ColorAdapter;
 import com.mandy.innfedia.adapter.SizeAdapter;
 import com.mandy.innfedia.adapter.ViewPagerProductImageAdapter;
 import com.mandy.innfedia.adapter.main2.SeeRelatedItemAdapter;
-import com.mandy.innfedia.adapter.main2.ZoomingAdapter;
+
 
 import java.util.ArrayList;
 
@@ -126,7 +126,10 @@ public class ProductDetailsFragment extends Fragment {
         arrayList.add(R.drawable.kid);
         PagerAdapter adapter = new ViewPagerProductImageAdapter(getContext(), arrayList);
         viewPager.setAdapter(adapter);
+
         circleIndicator.setViewPager(viewPager);
+
+        adapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
 
 
     }

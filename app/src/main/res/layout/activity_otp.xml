@@ -9,6 +9,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -24,6 +25,7 @@
 
 
         <EditText
+            android:id="@+id/edtOtp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/topMargin"
@@ -37,8 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/topMargin"
-            android:text="Verify otp"
             android:background="@color/yellow"
+            android:text="Verify otp"
             android:textColor="@color/black"
             android:textSize="@dimen/text"
             android:textStyle="bold" />
