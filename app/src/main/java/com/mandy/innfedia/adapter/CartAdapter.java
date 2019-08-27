@@ -14,9 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.UtilDialog;
-
-import java.util.ArrayList;
+import com.mandy.innfedia.Utils.UtilDialog;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     Context context;

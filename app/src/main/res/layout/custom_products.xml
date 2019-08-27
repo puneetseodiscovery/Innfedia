@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/custom_productImage"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="185dp"
         android:scaleType="centerCrop" />
 
     <com.wang.avi.AVLoadingIndicatorView
@@ -23,64 +23,72 @@
         app:indicatorColor="@color/yellow"
         app:indicatorName="BallSpinFadeLoaderIndicator" />
 
-    <TextView
-        android:id="@+id/custom_producName"
+    <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/custom_productImage"
-        android:layout_marginTop="3dp"
-        android:text="helo amit here to buy"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text" />
+        android:paddingLeft="@dimen/padding"
+        android:paddingTop="@dimen/padding"
+        android:paddingRight="@dimen/padding">
 
-    <RatingBar
-        android:id="@+id/custom_productRating"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/custom_producName"
-        android:layout_marginTop="3dp"
-        android:numStars="5"
-        android:padding="2dp"
-        android:stepSize="1" />
 
-    <TextView
-        android:id="@+id/custom_productRating_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/custom_producName"
-        android:layout_marginLeft="@dimen/padding"
-        android:layout_marginTop="3dp"
-        android:layout_toRightOf="@id/custom_productRating"
-        android:text="15"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text" />
+        <TextView
+            android:id="@+id/custom_productName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="helo amit here to budadafad aadaadaf ad af adadadadafaady"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text" />
 
-    <TextView
-        android:id="@+id/custom_productPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/custom_productRating_number"
-        android:layout_marginTop="3dp"
-        android:text="From 550$"
-        android:textColor="@color/red"
-        android:textSize="@dimen/text" />
+        <RatingBar
+            android:id="@+id/custom_productRating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/custom_productName"
+            android:numStars="5"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:stepSize="1" />
 
-    <TextView
-        android:id="@+id/custom_productDilvery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/custom_productPrice"
-        android:layout_marginTop="3dp"
-        android:text="FREE Delivery"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/text" />
+        <TextView
+            android:id="@+id/custom_productRating_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/custom_productName"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_toRightOf="@id/custom_productRating"
+            android:text="15"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text" />
 
+        <TextView
+            android:id="@+id/custom_productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/custom_productRating_number"
+            android:text="From 550$"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text" />
+
+        <TextView
+            android:id="@+id/custom_productDilvery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/custom_productPrice"
+            android:text="FREE Delivery"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text" />
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/custom_productDilvery"
-        android:layout_marginTop="@dimen/topMargin"
+        android:layout_below="@id/relative"
+        android:layout_marginTop="@dimen/padding"
         android:background="@color/gray" />
 </RelativeLayout>

@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
     private final static String BASE_API_URL = "http://infedia.amrdev.site/api/";
+    public final static String BASE_API_PROFILE_IMAGE = "http://infedia.amrdev.site/public/images/user_images/";
     private static Retrofit retrofit = null;
     private static Gson gson = new GsonBuilder().create();
 

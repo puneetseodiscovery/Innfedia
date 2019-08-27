@@ -29,12 +29,12 @@
         android:id="@+id/dashText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:layout_below="@id/dashImage"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/topMargin"
         android:layout_marginBottom="@dimen/padding"
         android:gravity="center"
-        android:text="Men's"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="@dimen/subheading" />
 

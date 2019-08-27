@@ -1,6 +1,7 @@
 package com.mandy.innfedia.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -36,14 +37,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.textView.setText(arrayList.get(i).getTitle());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Home2Fragment home2Fragment = new Home2Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("SubID", arrayList.get(i).getId().toString());
+                home2Fragment.setArguments(bundle);
                 FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.framelayout, new Home2Fragment());
+                transaction.replace(R.id.framelayout, home2Fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

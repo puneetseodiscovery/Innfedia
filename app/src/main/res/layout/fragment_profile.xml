@@ -31,7 +31,6 @@
                     android:layout_marginTop="@dimen/topMargin"
                     android:clickable="false"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/womantop"
                     app:riv_oval="true" />
 
             </RelativeLayout>
@@ -47,7 +46,6 @@
                 android:gravity="center"
                 android:hint="Full Name"
                 android:padding="@dimen/padding"
-                android:text="Amit pandey"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text" />
 
@@ -60,8 +58,8 @@
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:hint="Email (opational)"
+                android:inputType="textEmailAddress"
                 android:padding="@dimen/padding"
-                android:text="amitpanday451@gmail.com"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text" />
 
@@ -75,8 +73,8 @@
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:hint="Phone No."
+                android:inputType="number"
                 android:padding="@dimen/padding"
-                android:text="8872451846"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text" />
 

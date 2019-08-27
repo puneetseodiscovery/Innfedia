@@ -14,21 +14,20 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_margin="@dimen/topMargin"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter OTP"
-            android:textColor="@color/black"
-            android:textSize="@dimen/heading" />
+            android:src="@drawable/logo" />
 
 
         <EditText
             android:id="@+id/edtOtp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/topMargin"
+            android:layout_marginTop="@dimen/margin"
             android:hint="Enter your OTP"
             android:padding="@dimen/padding"
             android:textColor="@color/black"

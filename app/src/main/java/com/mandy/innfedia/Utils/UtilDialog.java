@@ -1,4 +1,4 @@
-package com.mandy.innfedia;
+package com.mandy.innfedia.Utils;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mandy.innfedia.Activities.LoginActivity;
+import com.mandy.innfedia.R;
 import com.mandy.innfedia.Utils.SharedToken;
 
 public class UtilDialog {

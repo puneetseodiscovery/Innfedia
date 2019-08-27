@@ -8,14 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mandy.innfedia.ApiModel.GetProductDetails;
 import com.mandy.innfedia.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<String> arrayList;
+    List<GetProductDetails.Size> arrayList;
     int pos;
 
     // interface to refresh the list
@@ -30,7 +32,7 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.ViewHolder> {
     }
 
 
-    public SizeAdapter(Context context, ArrayList<String> arrayList) {
+    public SizeAdapter(Context context, List<GetProductDetails.Size> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -46,8 +48,7 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        viewHolder.textView.setText(arrayList.get(i));
-
+        viewHolder.textView.setText(arrayList.get(i).getSize());
         if (pos == i) {
             viewHolder.textView.setBackgroundResource(R.drawable.custom_size);
             viewHolder.textView.setTextColor(context.getResources().getColor(R.color.black));

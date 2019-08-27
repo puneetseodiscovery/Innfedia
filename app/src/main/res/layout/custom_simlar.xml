@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="200dp"
-
     android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/rel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageView"
@@ -34,10 +32,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/imageView"
+            android:layout_marginLeft="5dp"
             android:inputType="text"
             android:maxWidth="140dp"
             android:padding="5dp"
-            android:text="Stylense"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/text" />
 
@@ -46,10 +45,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/productName"
+            android:layout_marginLeft="5dp"
             android:inputType="text"
             android:maxWidth="140dp"
             android:padding="5dp"
-            android:text="$ 205.0-199.0"
+            android:text=""
             android:textColor="@color/red"
             android:textSize="@dimen/text" />
 
@@ -59,6 +59,7 @@
         android:layout_width="1dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/rel"
+        android:layout_marginLeft="5dp"
         android:background="@color/gray" />
 
 </RelativeLayout>

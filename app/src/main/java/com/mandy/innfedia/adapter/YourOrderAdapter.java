@@ -55,7 +55,6 @@ public class YourOrderAdapter extends RecyclerView.Adapter<YourOrderAdapter.View
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.replace(R.id.framelayout, new YourOrderDetailsFragment());
                 transaction.addToBackStack(null);

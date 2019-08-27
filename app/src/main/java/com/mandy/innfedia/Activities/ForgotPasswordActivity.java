@@ -14,13 +14,13 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mandy.innfedia.ApiInterface;
-import com.mandy.innfedia.ApiModel.DiscountedApi;
 import com.mandy.innfedia.ApiModel.ForgotPasswordApi;
-import com.mandy.innfedia.ProgressBarClass;
+import com.mandy.innfedia.Utils.CheckInternet;
+import com.mandy.innfedia.Utils.ProgressBarClass;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.ServiceGenerator;
+import com.mandy.innfedia.Utils.Snack;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,14 +56,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (button.getText().toString().equals("Send otp")) {
-                    getOtp();
-                }
-                if (button.getText().toString().equals("Enter your otp")) {
-                    confirmOtp();
-                }
-                if (button.getText().toString().equals("Set Password")) {
-                    setPassword();
+                if (CheckInternet.isInternetAvailable(ForgotPasswordActivity.this)) {
+                    if (button.getText().toString().equals("Send otp")) {
+                        getOtp();
+                    }
+                    if (button.getText().toString().equals("Enter your otp")) {
+                        confirmOtp();
+                    }
+                    if (button.getText().toString().equals("Set Password")) {
+                        setPassword();
+                    }
+                } else {
+                    Snack.snackbar(ForgotPasswordActivity.this, getResources().getString(R.string.noInternet));
                 }
             }
         });

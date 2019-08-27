@@ -8,15 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mandy.innfedia.ApiModel.GetProductDetails;
 import com.mandy.innfedia.R;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> {
     Context context;
-    ArrayList<String> arrayList;
+    List<GetProductDetails.Color> arrayList;
 
     int pos;
 
@@ -32,7 +34,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     }
 
 
-    public ColorAdapter(Context context, ArrayList<String> arrayList) {
+    public ColorAdapter(Context context, List<GetProductDetails.Color> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -48,7 +50,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
-        viewHolder.textView.setText(arrayList.get(i));
+        viewHolder.textView.setText(arrayList.get(i).getSize());
 
         if (pos == i) {
             viewHolder.textView.setBackgroundResource(R.drawable.custom_size);

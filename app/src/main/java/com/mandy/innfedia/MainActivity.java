@@ -4,8 +4,12 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,21 +17,30 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.crashlytics.android.Crashlytics;
 import com.mandy.innfedia.Activities.CustmerActivity;
-import com.mandy.innfedia.Activities.LoginActivity;
+import com.mandy.innfedia.Activities.NoInternetActivity;
+import com.mandy.innfedia.ApiModel.GetAddToCart;
+import com.mandy.innfedia.ApiModel.ProfileApi;
+import com.mandy.innfedia.Utils.CheckInternet;
+import com.mandy.innfedia.Utils.SharedToken;
+import com.mandy.innfedia.Utils.Snack;
+import com.mandy.innfedia.Utils.UtilDialog;
 import com.mandy.innfedia.fragment.HomeFragment;
 import com.mandy.innfedia.fragment.MyCartFragment;
 import com.mandy.innfedia.fragment.OrderListFragment;
-import com.mandy.innfedia.fragment.ProductDetailsFragment;
 import com.mandy.innfedia.fragment.ProfileFragment;
 import com.mandy.innfedia.fragment.SearchFragment;
 
@@ -35,18 +48,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static TextView textView;
+    public static TextView txtcartNumber;
+    public static ProfileApi.Data data;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     ImageView toolbarSearch, toolbarCart;
-    TextView txtcartNumber;
+
     ActionBarDrawerToggle mToggle;
     FragmentManager manager;
     FragmentTransaction transaction;
-    public static TextView textView;
+
 
     public static final int MULTIPLE_PERMISSIONS = 10;
     String[] permissions = new String[]{
@@ -64,6 +82,14 @@ public class MainActivity extends AppCompatActivity {
         // find all id
         init();
 
+
+        if (CheckInternet.isInternetAvailable(MainActivity.this)) {
+            getProfile();
+            getCartNumber();
+        } else {
+            startActivity(new Intent(MainActivity.this, NoInternetActivity.class));
+        }
+
         checkPermissions();
 
         mToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -74,13 +100,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        textView.setText("Infedia");
+        textView.setText("Innfedia");
 
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
 
-        LayoutInflater.from(this).inflate(R.layout.header, navigationView);
+//        LayoutInflater.from(this).inflate(R.layout.header, navigationView);
 
         transaction = manager.beginTransaction();
         transaction.replace(R.id.framelayout, new HomeFragment());
@@ -109,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                 transaction1.commit();
             }
         });
-
 
     }
 
@@ -226,6 +251,79 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+
+    public void getProfile() {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        SharedToken sharedToken = new SharedToken(this);
+        String token = "Bearer " + sharedToken.getShared();
+        Call<ProfileApi> call = apiInterface.getProfile(token);
+
+        call.enqueue(new Callback<ProfileApi>() {
+            @Override
+            public void onResponse(Call<ProfileApi> call, Response<ProfileApi> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equals(200)) {
+                        data = response.body().getData();
+
+                        View hView = navigationView.inflateHeaderView(R.layout.header);
+                        ImageView imgvw = (ImageView) hView.findViewById(R.id.imageView);
+                        TextView tv = (TextView) hView.findViewById(R.id.textView);
+                        Glide.with(MainActivity.this).load(ServiceGenerator.BASE_API_PROFILE_IMAGE + data.getImage()).listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                return false;
+                            }
+                        }).into(imgvw);
+
+                        tv.setText("Hello " + data.getName());
+
+
+                    } else {
+                        Snackbar.make(findViewById(android.R.id.content), "" + response.body().getMessage(), Snackbar.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "" + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileApi> call, Throwable t) {
+                Snackbar.make(findViewById(android.R.id.content), "" + t.getMessage(), Snackbar.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    private void getCartNumber() {
+        SharedToken sharedToken = new SharedToken(MainActivity.this);
+
+        ApiInterface apiInterfac = ServiceGenerator.createService(ApiInterface.class);
+        Call<GetAddToCart> call = apiInterfac.getCartNumber("Bearer " + sharedToken.getShared());
+        call.enqueue(new Callback<GetAddToCart>() {
+            @Override
+            public void onResponse(Call<GetAddToCart> call, Response<GetAddToCart> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equals(200)) {
+                        txtcartNumber.setText(response.body().getData().getTotalCartProducts().toString());
+                    } else {
+                        Snack.snackbar(MainActivity.this, response.body().getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetAddToCart> call, Throwable t) {
+
+            }
+        });
     }
 
 

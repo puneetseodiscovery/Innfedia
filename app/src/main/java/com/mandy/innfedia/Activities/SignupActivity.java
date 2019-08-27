@@ -1,26 +1,23 @@
 package com.mandy.innfedia.Activities;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mandy.innfedia.ApiInterface;
 import com.mandy.innfedia.ApiModel.SignUpApi;
-import com.mandy.innfedia.MainActivity;
-import com.mandy.innfedia.ProgressBarClass;
+import com.mandy.innfedia.Utils.CheckInternet;
+import com.mandy.innfedia.Utils.ProgressBarClass;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.ServiceGenerator;
+import com.mandy.innfedia.Utils.Snack;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,7 +70,12 @@ public class SignupActivity extends AppCompatActivity {
                     edtPassword.requestFocus();
                     edtPassword.setError("Password should be minimun 8 character");
                 } else {
-                    SignUp();
+
+                    if (CheckInternet.isInternetAvailable(SignupActivity.this)) {
+                        SignUp();
+                    } else {
+                        Snack.snackbar(SignupActivity.this, getResources().getString(R.string.noInternet));
+                    }
                 }
             }
         });

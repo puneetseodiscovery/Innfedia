@@ -2,11 +2,13 @@ package com.mandy.innfedia.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+
+import android.support.v7.app.AppCompatActivity;
+
 
 import com.mandy.innfedia.R;
 
@@ -14,7 +16,7 @@ public class CustmerActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView textView;
-    TextView textEmail1, textEmail2, textPhone1, textPhone2;
+    TextView textEmail1, textPhone1, textPhone2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

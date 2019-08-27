@@ -1,35 +1,52 @@
 package com.mandy.innfedia.fragment;
 
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ProgressBar;
 
+import com.mandy.innfedia.Activities.NoInternetActivity;
+import com.mandy.innfedia.ApiInterface;
+import com.mandy.innfedia.ApiModel.GetSubCategory;
 import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
+import com.mandy.innfedia.ServiceGenerator;
 import com.mandy.innfedia.SpacesItemDecoration;
+import com.mandy.innfedia.Utils.CheckInternet;
+import com.mandy.innfedia.Utils.ProgressBarClass;
+import com.mandy.innfedia.Utils.SharedToken;
+import com.mandy.innfedia.Utils.Snack;
 import com.mandy.innfedia.adapter.main2.BottomWearAdapter;
 import com.mandy.innfedia.adapter.main2.ExploreMoreAdapter;
 import com.mandy.innfedia.adapter.main2.TopWearAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Home2Fragment extends Fragment {
     RecyclerView recyclerViewTop, recyclerViewBottom, recyclerViewExplore;
-    ArrayList<String> arrayList = new ArrayList<>();
-    ArrayList<Integer> arrayImage = new ArrayList<>();
     FragmentManager manager;
-
     View view;
+    Context context;
+    String id;
 
     public Home2Fragment() {
         // Required empty public constructor
@@ -45,19 +62,12 @@ public class Home2Fragment extends Fragment {
         init();
 
         MainActivity.textView.setText("Infedia");
-        //array data
-        setArrayList();
 
-        //vew the top data
-        setTopData();
-
-        //set explore data
-        setExploreData();
-
-
-        //set the Bottom data
-        setBottomData();
-
+        if (CheckInternet.isInternetAvailable(context)) {
+            getData();
+        } else {
+            context.startActivity(new Intent(context, NoInternetActivity.class));
+        }
 
         return view;
 
@@ -71,56 +81,87 @@ public class Home2Fragment extends Fragment {
 
         manager = getActivity().getSupportFragmentManager();
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            id = bundle.getString("SubID");
+
+        }
+
+
     }
 
 
-    private void setArrayList() {
-        arrayList.add("T-Shirt");
-        arrayList.add("Polo");
-        arrayList.add("Causal");
-        arrayList.add("Formal Shirt");
-        arrayList.add("Suit & Blazers");
-        arrayList.add("Kurtas");
+    //get product data
+    private void getData() {
+        SharedToken sharedToken = new SharedToken(context);
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<GetSubCategory> call = apiInterface.getSubCategory("Bearer " + sharedToken.getShared(), id);
 
-        arrayImage.add(R.drawable.women);
-        arrayImage.add(R.drawable.womantop);
-        arrayImage.add(R.drawable.kid);
-        arrayImage.add(R.drawable.jwellery);
-        arrayImage.add(R.drawable.kid);
-        arrayImage.add(R.drawable.womantop);
+        final Dialog dialog = ProgressBarClass.showProgressDialog(context);
+        dialog.show();
+
+        call.enqueue(new Callback<GetSubCategory>() {
+            @Override
+            public void onResponse(Call<GetSubCategory> call, Response<GetSubCategory> response) {
+                dialog.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equals(200)) {
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+
+                            setTopData(response.body().getData().get(i).getTopWear());
+
+                            setBottomData(response.body().getData().get(i).getBottomWear());
+
+                            setExploreData(response.body().getData().get(i).getExploreMore());
+                        }
+                    } else {
+                        Snack.snackbar(getActivity(), response.body().getMessage());
+                    }
+
+                } else {
+                    Snack.snackbar(getActivity(), response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetSubCategory> call, Throwable t) {
+                dialog.dismiss();
+            }
+        });
     }
 
-    //set the top reyclerView item
-    private void setTopData() {
+    //set Top wear
+    private void setTopData(List<GetSubCategory.TopWear> topWear) {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewTop.setLayoutManager(layoutManager);
-        recyclerViewTop.addItemDecoration(new SpacesItemDecoration(15));
-
-        TopWearAdapter adapter = new TopWearAdapter(getContext(), arrayList, arrayImage, manager);
+        recyclerViewTop.addItemDecoration(new SpacesItemDecoration(10));
+        TopWearAdapter adapter = new TopWearAdapter(context, topWear, manager);
         recyclerViewTop.setAdapter(adapter);
     }
 
 
     //set the top reyclerView item
-    private void setBottomData() {
+    private void setBottomData(List<GetSubCategory.BottomWear> bottomWears) {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewBottom.setLayoutManager(layoutManager);
-        recyclerViewBottom.addItemDecoration(new SpacesItemDecoration(15));
-
-        BottomWearAdapter adapter = new BottomWearAdapter(getContext(), arrayList, arrayImage, manager);
+        recyclerViewBottom.addItemDecoration(new SpacesItemDecoration(10));
+        BottomWearAdapter adapter = new BottomWearAdapter(getContext(), bottomWears, manager);
         recyclerViewBottom.setAdapter(adapter);
     }
 
-
     //set the top reyclerView item
-    private void setExploreData() {
-
+    private void setExploreData(List<GetSubCategory.ExploreMore> exploreWears) {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewExplore.setLayoutManager(layoutManager);
-        recyclerViewExplore.addItemDecoration(new SpacesItemDecoration(15));
-
-        ExploreMoreAdapter adapter = new ExploreMoreAdapter(getContext(), arrayList, arrayImage, manager);
+        recyclerViewExplore.addItemDecoration(new SpacesItemDecoration(10));
+        ExploreMoreAdapter adapter = new ExploreMoreAdapter(getContext(), exploreWears, manager);
         recyclerViewExplore.setAdapter(adapter);
     }
 
+
+    @Override
+    public void onAttach(Context context1) {
+        super.onAttach(context1);
+        context = context1;
+    }
 }

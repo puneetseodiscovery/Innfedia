@@ -1,11 +1,9 @@
 package com.mandy.innfedia.fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,15 +16,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mandy.innfedia.Activities.NoInternetActivity;
 import com.mandy.innfedia.ApiInterface;
 import com.mandy.innfedia.ApiModel.BannerApi;
 import com.mandy.innfedia.ApiModel.CategoryApi;
 import com.mandy.innfedia.ApiModel.DiscountedApi;
 import com.mandy.innfedia.ApiModel.NewArivalApi;
-import com.mandy.innfedia.ProgressBarClass;
+import com.mandy.innfedia.Utils.CheckInternet;
+import com.mandy.innfedia.Utils.ProgressBarClass;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.ServiceGenerator;
 import com.mandy.innfedia.SpacesItemDecoration;
@@ -35,7 +34,6 @@ import com.mandy.innfedia.adapter.CategoryAdapter;
 import com.mandy.innfedia.adapter.DiscountedAdapter;
 import com.mandy.innfedia.adapter.NewArrivalAdapter;
 import com.mandy.innfedia.adapter.ViewPagerAdapter;
-import com.mandy.innfedia.adapter.main2.ExploreMoreAdapter;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -83,18 +81,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //get category item
-        getCategory();
 
+        if (CheckInternet.isInternetAvailable(context)) {
+            //get category item
+            getCategory();
+            //view pager offer list
+            getBanner();
 
-        //view pager offer list
-        getBanner();
+            //view the new arival
+            getNewArrivals();
 
-        //view the new arival
-        getNewArrivals();
-
-        //set the discount data
-        getDiscounted();
+            //set the discount data
+            getDiscounted();
+        } else {
+            context.startActivity(new Intent(context, NoInternetActivity.class));
+        }
 
 //        //set data into best sell
 //        setBestSell();
@@ -168,7 +169,7 @@ public class HomeFragment extends Fragment {
         recyclerViewNew.setLayoutManager(layoutManager);
         NewArrivalAdapter arrivalAdapter = new NewArrivalAdapter(getContext(), arrayNewArrivals, manager);
         recyclerViewNew.setAdapter(arrivalAdapter);
-        recyclerViewNew.addItemDecoration(new SpacesItemDecoration(15));
+        recyclerViewNew.addItemDecoration(new SpacesItemDecoration(10));
 
     }
 
@@ -179,7 +180,7 @@ public class HomeFragment extends Fragment {
         recyclerViewDiscount.setLayoutManager(layoutManager);
         DiscountedAdapter discountedAdapter = new DiscountedAdapter(getContext(), arrayDiscounted, manager);
         recyclerViewDiscount.setAdapter(discountedAdapter);
-        recyclerViewDiscount.addItemDecoration(new SpacesItemDecoration(15));
+        recyclerViewDiscount.addItemDecoration(new SpacesItemDecoration(10));
 
     }
 

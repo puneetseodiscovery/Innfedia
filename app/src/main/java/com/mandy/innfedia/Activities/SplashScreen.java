@@ -34,7 +34,7 @@ public class SplashScreen extends AppCompatActivity {
         final SharedToken sharedToken = new SharedToken(SplashScreen.this);
 
 
-        // animation for image logo
+//         animation for image logo
 //        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim);
 //        animation.setInterpolator((new AccelerateDecelerateInterpolator()));
 //        animation.setFillAfter(true);
@@ -43,10 +43,10 @@ public class SplashScreen extends AppCompatActivity {
 
 //        //animation for text
 
-        Animation animtext = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim2);
-        animtext.setInterpolator((new AccelerateDecelerateInterpolator()));
-        animtext.setFillAfter(true);
-        textView.setAnimation(animtext);
+//        Animation animtext = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim2);
+//        animtext.setInterpolator((new AccelerateDecelerateInterpolator()));
+//        animtext.setFillAfter(true);
+//        textView.setAnimation(animtext);
 
         new Handler().postDelayed(new Runnable() {
             @Override

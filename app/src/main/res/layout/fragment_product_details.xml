@@ -28,7 +28,6 @@
                     android:id="@+id/txtproductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Product Name"
                     android:textColor="@color/bule"
                     android:textSize="@dimen/text" />
 
@@ -38,7 +37,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtproductName"
-                    android:text="Sub producat name"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text" />
 
@@ -56,19 +54,17 @@
                         style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:isIndicator="true"
                         android:numStars="5"
                         android:paddingTop="3dp"
-                        android:paddingBottom="3dp"
-                        android:stepSize="1" />
+                        android:paddingBottom="3dp" />
 
                     <TextView
-
                         android:id="@+id/txtratingNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:gravity="center_vertical"
-                        android:text="5"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text" />
 
@@ -135,7 +131,6 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:gravity="center"
-                        android:text="$999.00"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/text" />
                 </RelativeLayout>
@@ -148,7 +143,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/margin"
                     android:gravity="center"
-                    android:text="$899.00"
                     android:textColor="@color/red"
                     android:textSize="@dimen/text" />
 
@@ -180,7 +174,6 @@
                     android:id="@+id/txtColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Black"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text"
                     android:textStyle="normal" />
@@ -214,7 +207,6 @@
                     android:id="@+id/txtSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Small"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text"
                     android:textStyle="normal" />
@@ -246,7 +238,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/topMargin"
-                android:text="@string/perviewDescrition"
                 app:colorClickableText="@color/bule"
                 app:trimCollapsedText="Read less"
                 app:trimExpandedText="Read more"
@@ -267,7 +258,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/topMargin"
-                android:text="@string/perviewDescrition"
                 app:colorClickableText="@color/bule"
                 app:trimCollapsedText="Read less"
                 app:trimExpandedText="Read more"

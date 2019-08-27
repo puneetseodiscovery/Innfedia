@@ -1,7 +1,6 @@
 package com.mandy.innfedia.Activities;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,10 +14,12 @@ import android.widget.Toast;
 import com.mandy.innfedia.ApiInterface;
 import com.mandy.innfedia.ApiModel.VerificationOtpApi;
 import com.mandy.innfedia.MainActivity;
-import com.mandy.innfedia.ProgressBarClass;
+import com.mandy.innfedia.Utils.CheckInternet;
+import com.mandy.innfedia.Utils.ProgressBarClass;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.ServiceGenerator;
 import com.mandy.innfedia.Utils.SharedToken;
+import com.mandy.innfedia.Utils.Snack;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +46,11 @@ public class OtpActivity extends AppCompatActivity {
                     edtOtp.setError("Invalid OTP");
                     edtOtp.requestFocus();
                 } else {
-                    OtpApi();
+                    if (CheckInternet.isInternetAvailable(OtpActivity.this)) {
+                        OtpApi();
+                    } else {
+                        Snack.snackbar(OtpActivity.this, getResources().getString(R.string.noInternet));
+                    }
                 }
             }
         });
@@ -55,7 +60,6 @@ public class OtpActivity extends AppCompatActivity {
 
     //send otp for verification
     private void OtpApi() {
-
         phone = getIntent().getStringExtra("phone");
         id = getIntent().getStringExtra("id");
 

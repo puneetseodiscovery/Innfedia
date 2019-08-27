@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Innfedia</string>
     <string name="welcome">Welcome</string>
-    <string name="login">Login</string>
+    <string name="login"> Login</string>
     <string name="login2"><u>Login</u></string>
     <string name="dont">Don\'t have an account ? </string>
     <string name="signup"><u>Sign up</u></string>
@@ -22,4 +22,6 @@
     <string name="invalid">Invalid field</string>
     <string name="forgot">Forgot Password?</string>
     <string name="Goto">Go to the Login Screen </string>
+    <string name="noInternet">No Internet Connection</string>
+    <string name="rs">\u20B9</string>
 </resources>

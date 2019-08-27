@@ -1,4 +1,4 @@
-package com.mandy.innfedia;
+package com.mandy.innfedia.Utils;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,6 +7,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.Window;
 
+import com.mandy.innfedia.R;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class ProgressBarClass {
