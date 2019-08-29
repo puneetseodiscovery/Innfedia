@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.mandy.innfedia.ApiModel.CategoryApi;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.fragment.Home2Fragment;
+import com.mandy.innfedia.home2.Home2Fragment;
 
 import java.util.ArrayList;
 

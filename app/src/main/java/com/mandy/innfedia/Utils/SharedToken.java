@@ -14,16 +14,25 @@ public class SharedToken {
 
     }
 
-    public void setSharedata(String token) {
+    public void setSharedata(String token,String userid) {
         sharedPreferences = context.getSharedPreferences("User", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString("Token", token);
+        editor.putString("userId", userid);
         editor.apply();
     }
+
+
 
     public String getShared() {
         sharedPreferences = context.getSharedPreferences("User", Context.MODE_PRIVATE);
         String data = sharedPreferences.getString("Token", "");
+        return data;
+    }
+
+    public String getUserId() {
+        sharedPreferences = context.getSharedPreferences("User", Context.MODE_PRIVATE);
+        String data = sharedPreferences.getString("userId", "");
         return data;
     }
 

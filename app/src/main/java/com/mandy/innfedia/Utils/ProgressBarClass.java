@@ -21,10 +21,7 @@ public class ProgressBarClass {
         dialog.setContentView(R.layout.custom_progress);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-        AVLoadingIndicatorView  avLoadingIndicatorView = dialog.findViewById(R.id.avi);
-
         dialog.show();
-
 
         return dialog;
     }

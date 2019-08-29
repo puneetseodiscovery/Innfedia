@@ -5,14 +5,10 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.flaviofaria.kenburnsview.KenBurnsView;
-import com.flaviofaria.kenburnsview.RandomTransitionGenerator;
+import com.mandy.innfedia.Login.LoginActivity;
 import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.Utils.SharedToken;

@@ -1,6 +1,5 @@
 package com.mandy.innfedia.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -10,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -19,20 +17,19 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.mandy.innfedia.ApiModel.GetProductDetails;
+import com.mandy.innfedia.ProductDetils.GetProductDetailsApi;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.Utils.Config;
 import com.wang.avi.AVLoadingIndicatorView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewPagerProductImageAdapter extends PagerAdapter {
 
-    List<GetProductDetails.ProductImage> arrayList;
+    List<GetProductDetailsApi.ProductImage> arrayList;
     Context context;
 
-    public ViewPagerProductImageAdapter(Context context, List<GetProductDetails.ProductImage> arrayList) {
+    public ViewPagerProductImageAdapter(Context context, List<GetProductDetailsApi.ProductImage> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
 

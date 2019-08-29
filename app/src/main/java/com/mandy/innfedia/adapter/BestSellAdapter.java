@@ -1,7 +1,6 @@
 package com.mandy.innfedia.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.fragment.Home2Fragment;
+import com.mandy.innfedia.home2.Home2Fragment;
 
 import java.util.ArrayList;
 

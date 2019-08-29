@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.mandy.innfedia.Activities.NoInternetActivity;
-import com.mandy.innfedia.ApiInterface;
+import com.mandy.innfedia.Retrofit.ApiInterface;
 import com.mandy.innfedia.ApiModel.BannerApi;
 import com.mandy.innfedia.ApiModel.CategoryApi;
 import com.mandy.innfedia.ApiModel.DiscountedApi;
@@ -27,7 +27,7 @@ import com.mandy.innfedia.ApiModel.NewArivalApi;
 import com.mandy.innfedia.Utils.CheckInternet;
 import com.mandy.innfedia.Utils.ProgressBarClass;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.ServiceGenerator;
+import com.mandy.innfedia.Retrofit.ServiceGenerator;
 import com.mandy.innfedia.SpacesItemDecoration;
 import com.mandy.innfedia.adapter.BestSellAdapter;
 import com.mandy.innfedia.adapter.CategoryAdapter;
@@ -187,13 +187,12 @@ public class HomeFragment extends Fragment {
 
     //set the data into BestSell
     private void setBestSell() {
-
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewBestSell.setLayoutManager(layoutManager);
 
         BestSellAdapter bestSellAdapter = new BestSellAdapter(getContext(), arrayList, arrayImage, manager);
         recyclerViewBestSell.setAdapter(bestSellAdapter);
-        recyclerViewBestSell.addItemDecoration(new SpacesItemDecoration(15));
+        recyclerViewBestSell.addItemDecoration(new SpacesItemDecoration(10));
 
     }
 

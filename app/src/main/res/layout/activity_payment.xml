@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/recycler"
-    tools:context=".Activities.PaymentActivity">
+    tools:context=".Payment.PaymentActivity">
 
     <include
         android:id="@+id/tooolbar"
@@ -45,10 +45,13 @@
                 android:padding="1dp">
 
                 <TextView
+                    android:id="@+id/txtAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:padding="@dimen/padding"
-                    android:text="Shipping to: Amit mandy web design.."
+                    android:singleLine="true"
                     android:textSize="@dimen/text" />
 
                 <View
@@ -62,7 +65,8 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txtItemQuantity"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="@dimen/padding"
@@ -72,12 +76,11 @@
 
                     <TextView
                         android:id="@+id/txtItem"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:padding="@dimen/padding"
-                        android:text="75$"
                         android:textSize="@dimen/text" />
 
 
@@ -90,7 +93,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="@dimen/padding"
@@ -100,12 +103,11 @@
 
                     <TextView
                         android:id="@+id/txtDelivery"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:padding="@dimen/padding"
-                        android:text="45$"
                         android:textSize="@dimen/text" />
 
 
@@ -117,7 +119,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="@dimen/padding"
@@ -129,12 +131,11 @@
 
                     <TextView
                         android:id="@+id/txtOrderTotal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:padding="@dimen/padding"
-                        android:text="115$"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text"
                         android:textStyle="bold" />
@@ -166,6 +167,7 @@
 
 
             <Button
+                android:id="@+id/btnPayment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/topMargin"

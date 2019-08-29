@@ -29,8 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxHeight="60dp"
-                android:text="man feshion shirtwhere ypu want to buy the item for the user to hebfakdand
-addandakdalk"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text" />
 
@@ -41,7 +39,6 @@ addandakdalk"
                 android:layout_below="@id/txtName"
                 android:inputType="text"
                 android:maxHeight="50dp"
-                android:text="$ 249.00 "
                 android:textColor="@color/red"
                 android:textSize="@dimen/text" />
 

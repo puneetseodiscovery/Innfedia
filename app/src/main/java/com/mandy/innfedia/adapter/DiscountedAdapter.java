@@ -1,12 +1,10 @@
 package com.mandy.innfedia.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +19,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.mandy.innfedia.ApiModel.DiscountedApi;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.fragment.Home2Fragment;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;

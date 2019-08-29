@@ -4,17 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mandy.innfedia.Activities.LoginActivity;
+import com.mandy.innfedia.Login.LoginActivity;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.Utils.SharedToken;
 
 public class UtilDialog {
 
