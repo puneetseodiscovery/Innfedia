@@ -1,6 +1,7 @@
 package com.mandy.innfedia.home2.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +23,8 @@ import com.bumptech.glide.request.target.Target;
 import com.mandy.innfedia.home2.GetSubCategoryApi;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.Utils.Config;
-import com.mandy.innfedia.productList.ProductListFragment;
+import com.mandy.innfedia.home2.SubCategoryActivity;
+import com.mandy.innfedia.productList.ProductListActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
@@ -31,12 +33,10 @@ public class TopWearAdapter extends RecyclerView.Adapter<TopWearAdapter.ViewHold
 
     Context context;
     List<GetSubCategoryApi.TopWear> arrayList;
-    FragmentManager manager;
 
-    public TopWearAdapter(Context context, List<GetSubCategoryApi.TopWear> arrayList, FragmentManager manager) {
+    public TopWearAdapter(Context context, List<GetSubCategoryApi.TopWear> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
-        this.manager = manager;
     }
 
     @NonNull
@@ -68,15 +68,11 @@ public class TopWearAdapter extends RecyclerView.Adapter<TopWearAdapter.ViewHold
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductListFragment productListFragment = new ProductListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("SubId", arrayList.get(i).getId().toString());
-                productListFragment.setArguments(bundle);
+                Intent intent = new Intent(context, ProductListActivity.class);
+                intent.putExtra("SubId", arrayList.get(i).getId().toString());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
 
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.framelayout, productListFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
             }
         });
     }

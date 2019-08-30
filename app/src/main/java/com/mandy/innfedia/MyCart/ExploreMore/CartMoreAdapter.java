@@ -1,6 +1,7 @@
 package com.mandy.innfedia.MyCart.ExploreMore;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,9 +22,9 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.mandy.innfedia.ProductDetils.ProductDetailsFragment;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.Utils.Config;
+import com.mandy.innfedia.productList.ProductListActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ import java.util.ArrayList;
 public class CartMoreAdapter extends RecyclerView.Adapter<CartMoreAdapter.ViewHolder> {
 
     Context context;
-    FragmentManager manager;
     ArrayList<GetExploreMoreData.Datum> arrayList = new ArrayList<>();
 
     public onclick click;
@@ -41,10 +41,9 @@ public class CartMoreAdapter extends RecyclerView.Adapter<CartMoreAdapter.ViewHo
         click = listener;
     }
 
-    public CartMoreAdapter(Context context, ArrayList<GetExploreMoreData.Datum> arrayList, FragmentManager manager) {
+    public CartMoreAdapter(Context context, ArrayList<GetExploreMoreData.Datum> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
-        this.manager = manager;
     }
 
     @NonNull
@@ -81,15 +80,11 @@ public class CartMoreAdapter extends RecyclerView.Adapter<CartMoreAdapter.ViewHo
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductDetailsFragment productDetailsFragment = new ProductDetailsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("subId", datum.getProductId().toString());
-                bundle.putString("Cid", datum.getProductCatId().toString());
-                productDetailsFragment.setArguments(bundle);
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.framelayout, productDetailsFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                Intent intent = new Intent(context, ProductListActivity.class);
+                intent.putExtra("subId", datum.getProductId().toString());
+                intent.putExtra("Cid", datum.getProductCatId().toString());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
 

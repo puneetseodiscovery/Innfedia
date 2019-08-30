@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.mandy.innfedia.Login.LoginActivity;
 import com.mandy.innfedia.Retrofit.ApiInterface;
-import com.mandy.innfedia.ApiModel.GetMeesageApi;
+import com.mandy.innfedia.GetMeesageApi;
 import com.mandy.innfedia.Utils.CheckInternet;
 import com.mandy.innfedia.Utils.ProgressBarClass;
 import com.mandy.innfedia.R;

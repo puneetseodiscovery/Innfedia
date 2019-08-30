@@ -1,15 +1,24 @@
 package com.mandy.innfedia.Controller;
 
-import com.mandy.innfedia.ApiModel.GetAddToCart;
-import com.mandy.innfedia.ApiModel.GetMeesageApi;
+import android.media.session.MediaSession;
+
+import com.google.gson.internal.LinkedHashTreeMap;
+import com.mandy.innfedia.AddressActivity.GetAddressApi;
+import com.mandy.innfedia.ProductDetils.GetAddToCart;
+import com.mandy.innfedia.GetMeesageApi;
 import com.mandy.innfedia.MyCart.ExploreMore.GetExploreMoreData;
 import com.mandy.innfedia.MyCart.GetCartDataApi;
 import com.mandy.innfedia.MyCart.topitems.GetTopDataApi;
+import com.mandy.innfedia.MyProfile.ProfileApi;
 import com.mandy.innfedia.Payment.PaymentProductApi;
+import com.mandy.innfedia.ProductDetils.GetProductDetailsApi;
 import com.mandy.innfedia.Retrofit.ApiInterface;
 import com.mandy.innfedia.Retrofit.ServiceGenerator;
 import com.mandy.innfedia.TermsAndCondition.TermsConditionApi;
+import com.mandy.innfedia.home2.GetSubCategoryApi;
+import com.mandy.innfedia.productList.GetProductList;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +34,15 @@ public class Controller {
     public ExploreMore exploreMore;// get the explore more items list
     public AddToCart addToCart;//add the item into cart
     public GetCheckSome getCheckSome;//get the checksome code form apis
+    public EditProfile editProfile;//edit the profile details
+    public EditProfileImage editProfileImage;// edit the prfile image
+    public GetProfile getProfile;//get the profile data
+    public GetAddressList getAddressList;// get the address list
+    public ADDAddress addAddress;//add address
+    public GetSubCateogry getSubCateogry;//get the subcategory;
+    public GetProductDetails getProductDetails;//get the product details
+    public GetRelatedItems getRelatedItems;//get the related items
+    public GetItemsList getItemsList;//get items list
 
     /*+++++++++++++++++++++++api for get the terms and condition++++++++++++++++++*/
     public Controller(getTermsandCondition getTermsand) {
@@ -289,4 +307,275 @@ public class Controller {
         void errorCart(String error);
     }
     /*++++++++++++++++++++++++++++++END+++++++++++++++++++++++++++++++++*/
+
+    /*++++++++++++++++++++++++EDIT PROFILE+++++++++++++++++++++++*/
+
+    public Controller(EditProfile editProfile1, EditProfileImage editProfileImage1, GetProfile getProfile1) {
+        editProfile = editProfile1;
+        editProfileImage = editProfileImage1;
+        getProfile = getProfile1;
+    }
+
+    public void setEditProfile(String token, String name, String email) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<ProfileApi> call = apiInterface.getProfileUpdate(token, name, email);
+        call.enqueue(new Callback<ProfileApi>() {
+            @Override
+            public void onResponse(Call<ProfileApi> call, Response<ProfileApi> response) {
+                if (response.isSuccessful()) {
+                    editProfile.onSucess(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileApi> call, Throwable t) {
+                editProfile.error(t.getMessage());
+            }
+        });
+    }
+
+    public interface EditProfile {
+        void onSucess(Response<ProfileApi> response);
+
+        void error(String error);
+    }
+    /*++++++++++++++++++++++++++++END++++++++++++++++++++++++++++++++*/
+
+    /*+++++++++++++++++++++++++++Edit Profile Image++++++++++++++++++++++*/
+
+    public void setEditProfileImage(String token, MultipartBody.Part part) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<ProfileApi> call = apiInterface.getProfileImage(token, part);
+        call.enqueue(new Callback<ProfileApi>() {
+            @Override
+            public void onResponse(Call<ProfileApi> call, Response<ProfileApi> response) {
+                if (response.isSuccessful()) {
+                    editProfileImage.onSucessImage(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileApi> call, Throwable t) {
+                editProfileImage.errorImage(t.getMessage());
+            }
+        });
+    }
+
+    public interface EditProfileImage {
+        void onSucessImage(Response<ProfileApi> response);
+
+        void errorImage(String error);
+    }
+    /*+++++++++++++++++++END+++++++++++++++++++++++++++++++++*/
+
+    /*+++++++++++++++++++++++GET THE PROFILE DATA+++++++++++++++++++*/
+
+    public void setGetProfile(String token) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<ProfileApi> call = apiInterface.getProfile(token);
+        call.enqueue(new Callback<ProfileApi>() {
+            @Override
+            public void onResponse(Call<ProfileApi> call, Response<ProfileApi> response) {
+                if (response.isSuccessful()) {
+                    getProfile.onSuccesGetProfile(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileApi> call, Throwable t) {
+                getProfile.errorProfile(t.getMessage());
+            }
+        });
+    }
+
+    public interface GetProfile {
+        void onSuccesGetProfile(Response<ProfileApi> response);
+
+        void errorProfile(String error);
+    }
+    /*+++++++++++++++++++++END++++++++++++++++++++++++++*/
+
+    /*++++++++++++++++++++++++++++get address list+++++++++++++++++*/
+
+    public Controller(GetAddressList getAddressList1) {
+        getAddressList = getAddressList1;
+    }
+
+    public void setGetAddressList(String token) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<GetAddressApi> call = apiInterface.getAddressList(token);
+        call.enqueue(new Callback<GetAddressApi>() {
+            @Override
+            public void onResponse(Call<GetAddressApi> call, Response<GetAddressApi> response) {
+                if (response.isSuccessful()) {
+                    getAddressList.onSucess(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetAddressApi> call, Throwable t) {
+                getAddressList.error(t.getMessage());
+            }
+        });
+    }
+
+    public interface GetAddressList {
+        void onSucess(Response<GetAddressApi> response);
+
+        void error(String error);
+    }
+    /*+++++++++++++++++++++++++END+++++++++++++++++++++++++*/
+
+    /*+++++++++++++++++++ADD ADDRESS INTO API+++++++++++++++++++*/
+
+    public Controller(ADDAddress addAddress1) {
+        addAddress = addAddress1;
+    }
+
+    public void setAddAddress(String token, String name, String mobile, String postcode, String town, String state, String flat, String near) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<GetMeesageApi> call = apiInterface.addAddress(token, name, mobile, postcode, town, state, flat, near);
+        call.enqueue(new Callback<GetMeesageApi>() {
+            @Override
+            public void onResponse(Call<GetMeesageApi> call, Response<GetMeesageApi> response) {
+                if (response.isSuccessful()) {
+                    addAddress.onSucess(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetMeesageApi> call, Throwable t) {
+                addAddress.error(t.getMessage());
+            }
+        });
+
+    }
+
+    public interface ADDAddress {
+        void onSucess(Response<GetMeesageApi> response);
+
+        void error(String error);
+    }
+    /*++++++++++++++++++++END+++++++++++++++++++++*/
+
+    /*########################## See All sub Category###########################*/
+
+    public Controller(GetSubCateogry getSubCateogry1) {
+        getSubCateogry = getSubCateogry1;
+    }
+
+    public void setGetSubCateogry(String token, String id) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<GetSubCategoryApi> call = apiInterface.getSubCategory(token, id);
+        call.enqueue(new Callback<GetSubCategoryApi>() {
+            @Override
+            public void onResponse(Call<GetSubCategoryApi> call, Response<GetSubCategoryApi> response) {
+                if (response.isSuccessful()) {
+                    getSubCateogry.onSucess(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetSubCategoryApi> call, Throwable t) {
+                getSubCateogry.error(t.getMessage());
+            }
+        });
+    }
+
+    public interface GetSubCateogry {
+        void onSucess(Response<GetSubCategoryApi> response);
+
+        void error(String error);
+    }
+    /*++++++++++++++++++++++END++++++++++++++++++++++++*/
+
+    /*+++++++++++++++++++Get Product Details+++++++++++++++++++++++++++*/
+
+    public Controller(GetProductDetails getProductDetails1, GetRelatedItems getRelatedItems1, AddToCart addToCart1) {
+        getProductDetails = getProductDetails1;
+        getRelatedItems = getRelatedItems1;
+        addToCart = addToCart1;
+    }
+
+    public void setGetProductDetails(String token, String id) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<GetProductDetailsApi> call = apiInterface.getProductDetails(token, id);
+        call.enqueue(new Callback<GetProductDetailsApi>() {
+            @Override
+            public void onResponse(Call<GetProductDetailsApi> call, Response<GetProductDetailsApi> response) {
+                if (response.isSuccessful()) {
+                    getProductDetails.onSucess(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetProductDetailsApi> call, Throwable t) {
+                getProductDetails.error(t.getMessage());
+            }
+        });
+    }
+
+    public interface GetProductDetails {
+        void onSucess(Response<GetProductDetailsApi> response);
+
+        void error(String error);
+    }
+    /*++++++++++++++++++++++++END++++++++++++++++++++++++++++++*/
+
+    /*++++++++++++++++++++++++++++++ Get the Related items ++++++++++++++++++++++ */
+    public void setGetRelatedItems(String token, String catId) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<GetProductList> call = apiInterface.getRelatedList(token, catId);
+        call.enqueue(new Callback<GetProductList>() {
+            @Override
+            public void onResponse(Call<GetProductList> call, Response<GetProductList> response) {
+                if (response.isSuccessful()) {
+                    getRelatedItems.onSuccessRelated(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetProductList> call, Throwable t) {
+                getRelatedItems.errorRelated(t.getMessage());
+            }
+        });
+    }
+
+    public interface GetRelatedItems {
+        void onSuccessRelated(Response<GetProductList> response);
+
+        void errorRelated(String error);
+    }
+    /*++++++++++++++++++++ END +++++++++++++++++++++*/
+
+    /*++++++++++++++++++++++++++++Get the product list+++++++++++++++++++++++*/
+
+    public Controller(GetItemsList getItemsList1) {
+        getItemsList = getItemsList1;
+    }
+
+    public void setGetItemsList(String token, String id) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<GetProductList> call = apiInterface.getProductList(token, id);
+        call.enqueue(new Callback<GetProductList>() {
+            @Override
+            public void onResponse(Call<GetProductList> call, Response<GetProductList> response) {
+                if (response.isSuccessful()) {
+                    getItemsList.onSuccess(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetProductList> call, Throwable t) {
+                getItemsList.error(t.getMessage());
+            }
+        });
+    }
+
+    public interface GetItemsList {
+        void onSuccess(Response<GetProductList> response);
+
+        void error(String error);
+    }
+    /*+++++++++++++++++++END+++++++++++++++++++++*/
 }

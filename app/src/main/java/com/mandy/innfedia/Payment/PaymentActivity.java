@@ -14,21 +14,32 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.mandy.innfedia.ApiModel.GetMeesageApi;
+import com.mandy.innfedia.Activities.NoInternetActivity;
+import com.mandy.innfedia.GetMeesageApi;
 import com.mandy.innfedia.Controller.Controller;
 import com.mandy.innfedia.MyCart.CartAdapter;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.SpacesItemDecoration;
 import com.mandy.innfedia.TermsAndCondition.TermsActivity;
+import com.mandy.innfedia.Utils.CheckInternet;
+import com.mandy.innfedia.Utils.Config;
 import com.mandy.innfedia.Utils.SharedToken;
 import com.mandy.innfedia.Utils.Snack;
-import com.mandy.innfedia.adapter.PaymentItemsAdapter;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +74,7 @@ public class PaymentActivity extends AppCompatActivity implements Controller.Buy
 
     Controller controller;
     SharedToken sharedToken;
-    String token, address, Cid, userId;
+    String token, address, Cid, userId, totalPrice, website, callbackUrl, orderId, checkSomeCode;
     Dialog dialog;
 
 
@@ -153,6 +164,8 @@ public class PaymentActivity extends AppCompatActivity implements Controller.Buy
             txtItem.setText(data.getCartPrice().toString());
             txtDelivery.setText(data.getDeliveryCharges().toString());
             txtOrderTotal.setText(data.getTotalCartPrice().toString());
+            totalPrice = data.getTotalCartPrice().toString();
+
             ArrayList<PaymentProductApi.TotalCartProduct> products = new ArrayList<>();
             for (int i = 0; i < response.body().getData().getTotalCartProducts().size(); i++) {
                 products.add(response.body().getData().getTotalCartProducts().get(i));
@@ -245,17 +258,94 @@ public class PaymentActivity extends AppCompatActivity implements Controller.Buy
     }
 
     @OnClick(R.id.btnPayment)
-    public void onViewClicked() {
-
+    public void onViewClicked(View view) {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("'DS'-DyykmsS", Locale.ENGLISH);
+        orderId = df.format(c.getTime());
+        website = "WEBSTAGING";
+        callbackUrl = "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=" + orderId;
+        if (CheckInternet.isInternetAvailable(this)) {
+            dialog.show();
+            controller.setGetCheckSome(token, Config.GET_MID, orderId, userId, "Retail", "WAP", totalPrice, website, callbackUrl);
+        } else {
+            startActivity(new Intent(this, NoInternetActivity.class));
+        }
     }
 
     @Override
     public void getCheck(Response<ResponseBody> respose) {
-
+        dialog.dismiss();
+        try {
+            checkSomeCode = respose.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        openPaytm(checkSomeCode);
     }
 
     @Override
     public void gotError(String error) {
+        dialog.dismiss();
+
+    }
+
+    // open paytm get way
+    private void openPaytm(String checkSomeCode) {
+
+        PaytmPGService service = PaytmPGService.getStagingService();
+        HashMap<String, String> paraMap = new HashMap<>();
+        paraMap.put("MID", Config.GET_MID);
+        paraMap.put("ORDER_ID", orderId);
+        paraMap.put("CUST_ID", userId);
+        paraMap.put("CHANNEL_ID", "WAP");
+        paraMap.put("TXN_AMOUNT", totalPrice);
+        paraMap.put("WEBSITE", website);
+        // This is the staging value. Production value is available in your dashboard
+        paraMap.put("INDUSTRY_TYPE_ID", "Retail");
+        // This is the staging value. Production value is available in your dashboard
+        paraMap.put("CALLBACK_URL", callbackUrl);
+        paraMap.put("CHECKSUMHASH", checkSomeCode);
+
+        PaytmOrder Order = new PaytmOrder(paraMap);
+        service.initialize(Order, null);
+
+        service.startPaymentTransaction(this, true, true, new PaytmPaymentTransactionCallback() {
+            @Override
+            public void onTransactionResponse(Bundle inResponse) {
+                Log.d("+++++++++++++", inResponse.toString());
+            }
+
+            @Override
+            public void networkNotAvailable() {
+
+            }
+
+            @Override
+            public void clientAuthenticationFailed(String inErrorMessage) {
+
+            }
+
+            @Override
+            public void someUIErrorOccurred(String inErrorMessage) {
+
+            }
+
+            @Override
+            public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String inFailingUrl) {
+
+            }
+
+            @Override
+            public void onBackPressedCancelTransaction() {
+
+            }
+
+            @Override
+            public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
+
+            }
+        });
+
 
     }
 }

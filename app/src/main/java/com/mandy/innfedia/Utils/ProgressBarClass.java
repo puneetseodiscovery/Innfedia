@@ -21,8 +21,6 @@ public class ProgressBarClass {
         dialog.setContentView(R.layout.custom_progress);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-        dialog.show();
-
         return dialog;
     }
 

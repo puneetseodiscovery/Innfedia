@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.mandy.innfedia.MainActivity;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.fragment.HomeFragment;
 
 public class NoInternetActivity extends AppCompatActivity {
 

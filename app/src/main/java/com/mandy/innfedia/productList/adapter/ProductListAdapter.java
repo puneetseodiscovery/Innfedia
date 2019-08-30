@@ -1,12 +1,10 @@
 package com.mandy.innfedia.productList.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +17,10 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.mandy.innfedia.home2.Home2Fragment;
+import com.mandy.innfedia.ProductDetils.ProductDetailsActivity;
 import com.mandy.innfedia.productList.GetProductList;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.Utils.Config;
-import com.mandy.innfedia.ProductDetils.ProductDetailsFragment;
-import com.mandy.innfedia.productList.ProductListFragment;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -33,14 +29,15 @@ import java.util.List;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
     Context context;
-    FragmentManager manager;
     List<GetProductList.Datum> arrayList = new ArrayList<>();
+    String id;
 
 
-    public ProductListAdapter(Context context, List<GetProductList.Datum> arrayList, FragmentManager manager) {
+    public ProductListAdapter(Context context, List<GetProductList.Datum> arrayList, String id) {
         this.context = context;
         this.arrayList = arrayList;
-        this.manager = manager;
+        this.id = id;
+
     }
 
     @NonNull
@@ -75,15 +72,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductDetailsFragment productDetailsFragment = new ProductDetailsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("subId", datum.getId().toString());
-                bundle.putString("Cid", ProductListFragment.id);
-                productDetailsFragment.setArguments(bundle);
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.framelayout, productDetailsFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                Intent intent = new Intent(context, ProductDetailsActivity.class);
+                intent.putExtra("subId", datum.getId().toString());
+                intent.putExtra("Cid", id);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
 
             }
         });

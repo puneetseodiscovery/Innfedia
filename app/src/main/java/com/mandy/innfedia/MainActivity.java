@@ -32,19 +32,19 @@ import com.bumptech.glide.request.target.Target;
 import com.crashlytics.android.Crashlytics;
 import com.mandy.innfedia.Activities.CustmerActivity;
 import com.mandy.innfedia.Activities.NoInternetActivity;
-import com.mandy.innfedia.ApiModel.GetAddToCart;
-import com.mandy.innfedia.ApiModel.ProfileApi;
+import com.mandy.innfedia.MyCart.MyCartActivity;
+import com.mandy.innfedia.ProductDetils.GetAddToCart;
+import com.mandy.innfedia.MyProfile.ProfileActivity;
+import com.mandy.innfedia.MyProfile.ProfileApi;
+import com.mandy.innfedia.MyOrderList.MyOrderListActivity;
 import com.mandy.innfedia.Retrofit.ApiInterface;
 import com.mandy.innfedia.Retrofit.ServiceGenerator;
+import com.mandy.innfedia.SearchActivity.SearchActivity;
 import com.mandy.innfedia.Utils.CheckInternet;
 import com.mandy.innfedia.Utils.SharedToken;
 import com.mandy.innfedia.Utils.Snack;
 import com.mandy.innfedia.Utils.UtilDialog;
-import com.mandy.innfedia.fragment.HomeFragment;
-import com.mandy.innfedia.MyCart.MyCartFragment;
-import com.mandy.innfedia.fragment.OrderListFragment;
-import com.mandy.innfedia.fragment.ProfileFragment;
-import com.mandy.innfedia.fragment.SearchFragment;
+import com.mandy.innfedia.HomeFragment.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,10 +120,8 @@ public class MainActivity extends AppCompatActivity {
         toolbarSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction1 = manager.beginTransaction();
-                transaction1.replace(R.id.framelayout, new SearchFragment());
-                transaction1.addToBackStack(null);
-                transaction1.commit();
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -131,10 +129,8 @@ public class MainActivity extends AppCompatActivity {
         toolbarCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction1 = manager.beginTransaction();
-                transaction1.replace(R.id.framelayout, new MyCartFragment());
-                transaction1.addToBackStack(null);
-                transaction1.commit();
+                Intent myCartIntent = new Intent(MainActivity.this, MyCartActivity.class);
+                startActivity(myCartIntent);
             }
         });
 
@@ -179,24 +175,18 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.myorderlist:
                         drawerLayout.closeDrawers();
-                        transaction = manager.beginTransaction();
-                        transaction.replace(R.id.framelayout, new OrderListFragment());
-                        transaction.addToBackStack(null);
-                        transaction.commit();
+                        Intent intent = new Intent(MainActivity.this, MyOrderListActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.cart:
                         drawerLayout.closeDrawers();
-                        transaction = manager.beginTransaction();
-                        transaction.replace(R.id.framelayout, new MyCartFragment());
-                        transaction.addToBackStack(null);
-                        transaction.commit();
+                        Intent myCartIntent = new Intent(MainActivity.this, MyCartActivity.class);
+                        startActivity(myCartIntent);
                         break;
                     case R.id.my_profile:
                         drawerLayout.closeDrawers();
-                        transaction = manager.beginTransaction();
-                        transaction.replace(R.id.framelayout, new ProfileFragment());
-                        transaction.addToBackStack(null);
-                        transaction.commit();
+                        Intent intent1 = new Intent(MainActivity.this, ProfileActivity.class);
+                        startActivity(intent1);
                         break;
 
                     case R.id.my_logout:

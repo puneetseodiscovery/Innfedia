@@ -29,21 +29,6 @@ public class SplashScreen extends AppCompatActivity {
 
         final SharedToken sharedToken = new SharedToken(SplashScreen.this);
 
-
-//         animation for image logo
-//        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim);
-//        animation.setInterpolator((new AccelerateDecelerateInterpolator()));
-//        animation.setFillAfter(true);
-//        imageView.setAnimation(animation);
-
-
-//        //animation for text
-
-//        Animation animtext = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim2);
-//        animtext.setInterpolator((new AccelerateDecelerateInterpolator()));
-//        animtext.setFillAfter(true);
-//        textView.setAnimation(animtext);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
