@@ -30,21 +30,21 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.crashlytics.android.Crashlytics;
-import com.mandy.innfedia.Activities.CustmerActivity;
-import com.mandy.innfedia.Activities.NoInternetActivity;
-import com.mandy.innfedia.MyCart.MyCartActivity;
-import com.mandy.innfedia.ProductDetils.GetAddToCart;
-import com.mandy.innfedia.MyProfile.ProfileActivity;
-import com.mandy.innfedia.MyProfile.ProfileApi;
-import com.mandy.innfedia.MyOrderList.MyOrderListActivity;
-import com.mandy.innfedia.Retrofit.ApiInterface;
-import com.mandy.innfedia.Retrofit.ServiceGenerator;
-import com.mandy.innfedia.SearchActivity.SearchActivity;
-import com.mandy.innfedia.Utils.CheckInternet;
-import com.mandy.innfedia.Utils.SharedToken;
-import com.mandy.innfedia.Utils.Snack;
-import com.mandy.innfedia.Utils.UtilDialog;
-import com.mandy.innfedia.HomeFragment.HomeFragment;
+import com.mandy.innfedia.commonActivity.CustmerActivity;
+import com.mandy.innfedia.commonActivity.NoInternetActivity;
+import com.mandy.innfedia.myCart.MyCartActivity;
+import com.mandy.innfedia.productDetails.GetAddToCart;
+import com.mandy.innfedia.myProfile.ProfileActivity;
+import com.mandy.innfedia.myProfile.ProfileApi;
+import com.mandy.innfedia.myOrderList.MyOrderListActivity;
+import com.mandy.innfedia.retrofit.ApiInterface;
+import com.mandy.innfedia.retrofit.ServiceGenerator;
+import com.mandy.innfedia.searchActivity.SearchActivity;
+import com.mandy.innfedia.utils.CheckInternet;
+import com.mandy.innfedia.utils.SharedToken;
+import com.mandy.innfedia.utils.Snack;
+import com.mandy.innfedia.utils.UtilDialog;
+import com.mandy.innfedia.homeFragment.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -296,7 +296,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void getCartNumber() {
         SharedToken sharedToken = new SharedToken(MainActivity.this);
-
         ApiInterface apiInterfac = ServiceGenerator.createService(ApiInterface.class);
         Call<GetAddToCart> call = apiInterfac.getCartNumber("Bearer " + sharedToken.getShared());
         call.enqueue(new Callback<GetAddToCart>() {

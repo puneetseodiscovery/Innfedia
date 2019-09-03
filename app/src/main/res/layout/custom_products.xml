@@ -40,7 +40,6 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:singleLine="true"
-            android:text="helo amit here to budadafad aadaadaf ad af adadadadafaady"
             android:textColor="@color/black"
             android:textSize="@dimen/text" />
 
@@ -51,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/custom_productName"
             android:numStars="5"
+            android:isIndicator="true"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:stepSize="1" />
@@ -62,7 +62,6 @@
             android:layout_below="@id/custom_productName"
             android:layout_marginLeft="@dimen/padding"
             android:layout_toRightOf="@id/custom_productRating"
-            android:text="15"
             android:textColor="@color/black"
             android:textSize="@dimen/text" />
 

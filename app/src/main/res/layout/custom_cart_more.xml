@@ -96,5 +96,6 @@
         android:text="Add  to Cart"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="@dimen/text" />
+        android:textSize="@dimen/text"
+        android:visibility="gone" />
 </RelativeLayout>

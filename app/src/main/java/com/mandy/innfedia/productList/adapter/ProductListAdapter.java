@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,10 +18,10 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.mandy.innfedia.ProductDetils.ProductDetailsActivity;
+import com.mandy.innfedia.productDetails.ProductDetailsActivity;
 import com.mandy.innfedia.productList.GetProductList;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.Utils.Config;
+import com.mandy.innfedia.utils.Config;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -55,6 +56,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         viewHolder.txtProductName.setText(datum.getTitle());
         viewHolder.txtPrice.setText(Config.GET_RUPPESS_SYMBOL + datum.getPrice());
+        viewHolder.ratingBar.setRating(Float.parseFloat(datum.getAvgRating()));
+        viewHolder.txtRatingUser.setText(datum.getTotalUsers().toString());
 
         Glide.with(context).load(Config.GET_PRODUCT_IMAGE + datum.getImage()).listener(new RequestListener<Drawable>() {
             @Override
@@ -91,6 +94,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView txtProductName, txtRatingUser, txtPrice;
+        RatingBar ratingBar;
         AVLoadingIndicatorView avLoadingIndicatorView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -100,6 +104,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             txtRatingUser = itemView.findViewById(R.id.custom_productRating_number);
             txtPrice = itemView.findViewById(R.id.custom_productPrice);
             avLoadingIndicatorView = itemView.findViewById(R.id.avi);
+            ratingBar = itemView.findViewById(R.id.custom_productRating);
         }
     }
 }
