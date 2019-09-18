@@ -1,4 +1,4 @@
-package com.mandy.innfedia;
+package com.mandy.innfedia.utils;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

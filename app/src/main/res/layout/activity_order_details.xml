@@ -50,15 +50,6 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/text" />
 
-                    <TextView
-                        android:id="@+id/productPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/padding"
-                        android:layout_marginTop="3dp"
-                        android:text="15650.00"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text" />
 
                     <RatingBar
                         android:id="@+id/productRating"
@@ -130,7 +121,6 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/padding"
                         android:numStars="5"
-                        android:rating="4"
                         android:stepSize="1" />
 
                     <EditText

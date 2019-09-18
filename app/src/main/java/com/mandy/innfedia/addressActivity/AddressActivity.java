@@ -48,6 +48,7 @@ public class AddressActivity extends AppCompatActivity implements Controller.Get
     SharedToken sharedToken;
     Dialog dialog;
     String address, id;
+    String size = "", color = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,11 @@ public class AddressActivity extends AppCompatActivity implements Controller.Get
         dialog.show();
 
         id = getIntent().getStringExtra("Cid");
+        if (!id.equals("0")) {
+            size = getIntent().getStringExtra("size");
+            color = getIntent().getStringExtra("color");
+        }
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
@@ -77,15 +83,32 @@ public class AddressActivity extends AppCompatActivity implements Controller.Get
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.add_address_btn:
-                Intent intent = new Intent(this, ADDAddressActivity.class);
-                intent.putExtra("Cid", id);
-                startActivity(intent);
+                if (id.equals("0")) {
+                    Intent intent = new Intent(this, ADDAddressActivity.class);
+                    intent.putExtra("Cid", id);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(this, ADDAddressActivity.class);
+                    intent.putExtra("Cid", id);
+                    intent.putExtra("size", size);
+                    intent.putExtra("color", color);
+                    startActivity(intent);
+                }
                 break;
             case R.id.continue_btn:
-                Intent intent1 = new Intent(this, PaymentActivity.class);
-                intent1.putExtra("Cid", id);
-                intent1.putExtra("Address", address);
-                startActivity(intent1);
+                if (id.equals("0")) {
+                    Intent intent1 = new Intent(this, PaymentActivity.class);
+                    intent1.putExtra("Cid", id);
+                    intent1.putExtra("Address", address);
+                    startActivity(intent1);
+                } else {
+                    Intent intent1 = new Intent(this, PaymentActivity.class);
+                    intent1.putExtra("Cid", id);
+                    intent1.putExtra("Address", address);
+                    intent1.putExtra("size", size);
+                    intent1.putExtra("color", color);
+                    startActivity(intent1);
+                }
                 break;
         }
     }

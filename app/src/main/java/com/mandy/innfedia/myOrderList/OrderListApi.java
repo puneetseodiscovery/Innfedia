@@ -1,11 +1,11 @@
-package com.mandy.innfedia.homeFragment.apis;
+package com.mandy.innfedia.myOrderList;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class NewArivalApi {
+public class OrderListApi {
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -40,17 +40,24 @@ public class NewArivalApi {
         this.data = data;
     }
 
+
     public class Datum {
 
         @SerializedName("id")
         @Expose
         private Integer id;
-        @SerializedName("title")
+        @SerializedName("product_id")
         @Expose
-        private String title;
+        private String productId;
         @SerializedName("image")
         @Expose
         private String image;
+        @SerializedName("order_date")
+        @Expose
+        private String orderDate;
+        @SerializedName("order_status")
+        @Expose
+        private String orderStatus;
 
         public Integer getId() {
             return id;
@@ -60,12 +67,12 @@ public class NewArivalApi {
             this.id = id;
         }
 
-        public String getTitle() {
-            return title;
+        public String getProductId() {
+            return productId;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
+        public void setProductId(String productId) {
+            this.productId = productId;
         }
 
         public String getImage() {
@@ -76,6 +83,21 @@ public class NewArivalApi {
             this.image = image;
         }
 
-    }
+        public String getOrderDate() {
+            return orderDate;
+        }
 
+        public void setOrderDate(String orderDate) {
+            this.orderDate = orderDate;
+        }
+
+        public String getOrderStatus() {
+            return orderStatus;
+        }
+
+        public void setOrderStatus(String orderStatus) {
+            this.orderStatus = orderStatus;
+        }
+
+    }
 }

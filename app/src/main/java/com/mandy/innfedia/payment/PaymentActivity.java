@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +14,6 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,7 +24,7 @@ import com.mandy.innfedia.GetMeesageApi;
 import com.mandy.innfedia.controller.Controller;
 import com.mandy.innfedia.myCart.CartAdapter;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.SpacesItemDecoration;
+import com.mandy.innfedia.utils.SpacesItemDecoration;
 import com.mandy.innfedia.termsandcondition.TermsActivity;
 import com.mandy.innfedia.utils.CheckInternet;
 import com.mandy.innfedia.utils.Config;
@@ -38,15 +36,12 @@ import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -88,7 +83,7 @@ public class PaymentActivity extends AppCompatActivity implements Controller.Buy
     JSONArray jsonArray;
     ArrayList<HashMap> arrayList = new ArrayList<>();
     ArrayList<PaymentProductApi.TotalCartProduct> products = new ArrayList<>();
-
+    String color = "", size = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +102,16 @@ public class PaymentActivity extends AppCompatActivity implements Controller.Buy
         Cid = getIntent().getStringExtra("Cid");
         txtAddress.setText(address);
 
-        controller.getBuyItemsList(token, Cid);
+        if (!Cid.equals("0")) {
+            color = getIntent().getStringExtra("color");
+            size = getIntent().getStringExtra("size");
+        }
 
+        if (CheckInternet.isInternetAvailable(this)) {
+            controller.getBuyItemsList(token, Cid, color, size);
+        } else {
+            startActivity(new Intent(this, NoInternetActivity.class));
+        }
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);

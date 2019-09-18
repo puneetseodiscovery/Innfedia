@@ -33,13 +33,14 @@ import com.crashlytics.android.Crashlytics;
 import com.mandy.innfedia.commonActivity.CustmerActivity;
 import com.mandy.innfedia.commonActivity.NoInternetActivity;
 import com.mandy.innfedia.myCart.MyCartActivity;
-import com.mandy.innfedia.productDetails.GetAddToCart;
+import com.mandy.innfedia.productDetails.apis.GetAddToCart;
 import com.mandy.innfedia.myProfile.ProfileActivity;
 import com.mandy.innfedia.myProfile.ProfileApi;
 import com.mandy.innfedia.myOrderList.MyOrderListActivity;
 import com.mandy.innfedia.retrofit.ApiInterface;
 import com.mandy.innfedia.retrofit.ServiceGenerator;
 import com.mandy.innfedia.searchActivity.SearchActivity;
+import com.mandy.innfedia.termsandcondition.TermsActivity;
 import com.mandy.innfedia.utils.CheckInternet;
 import com.mandy.innfedia.utils.SharedToken;
 import com.mandy.innfedia.utils.Snack;
@@ -195,11 +196,17 @@ public class MainActivity extends AppCompatActivity {
                         dialog.show();
                         break;
 
+                    case R.id.term:
+                        drawerLayout.closeDrawers();
+                        Intent intent2 = new Intent(MainActivity.this, TermsActivity.class);
+                        intent2.putExtra("T", "T");
+                        startActivity(intent2);
+                        break;
                     case R.id.customer:
                         drawerLayout.closeDrawers();
                         startActivity(new Intent(getApplicationContext(), CustmerActivity.class));
-
                         break;
+
                 }
 
                 return false;

@@ -4,6 +4,7 @@ package com.mandy.innfedia.homeFragment.adapter;
 import android.content.Context;
 
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.mandy.innfedia.homeFragment.apis.BannerApi;
 import com.mandy.innfedia.R;
+import com.mandy.innfedia.productList.ProductListActivity;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -29,7 +31,6 @@ import java.util.ArrayList;
 public class ViewPagerAdapter extends PagerAdapter {
 
     ArrayList<BannerApi.Datum> arrayList = new ArrayList<>();
-    int pos = 0;
     Context context;
 
 
@@ -52,10 +53,10 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
+    public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
         ImageView trailimg;
         final AVLoadingIndicatorView avLoadingIndicatorView;
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemview = inflater.inflate(R.layout.item, container, false);
         trailimg = itemview.findViewById(R.id.trailImage);
         avLoadingIndicatorView = itemview.findViewById(R.id.avi);
@@ -73,6 +74,16 @@ public class ViewPagerAdapter extends PagerAdapter {
             }
         }).into(trailimg);
 
+        trailimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("SubId", arrayList.get(position).getProductCatIds().toString());
+                intent.putExtra("type", "0");
+                context.startActivity(intent);
+            }
+        });
 
         ((ViewPager) container).addView(itemview);
 

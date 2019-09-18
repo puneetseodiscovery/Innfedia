@@ -16,48 +16,59 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mandy.innfedia.R;
 import com.mandy.innfedia.commonActivity.NoInternetActivity;
+import com.mandy.innfedia.controller.Controller;
+import com.mandy.innfedia.dashboardproducts.ProductsActivity;
 import com.mandy.innfedia.homeFragment.adapter.BestSellAdapter;
 import com.mandy.innfedia.homeFragment.adapter.CategoryAdapter;
 import com.mandy.innfedia.homeFragment.adapter.DiscountedAdapter;
 import com.mandy.innfedia.homeFragment.adapter.NewArrivalAdapter;
-import com.mandy.innfedia.retrofit.ApiInterface;
+import com.mandy.innfedia.homeFragment.adapter.ViewPagerAdapter;
 import com.mandy.innfedia.homeFragment.apis.BannerApi;
 import com.mandy.innfedia.homeFragment.apis.CategoryApi;
-import com.mandy.innfedia.homeFragment.apis.DiscountedApi;
-import com.mandy.innfedia.homeFragment.apis.NewArivalApi;
+import com.mandy.innfedia.productList.GetProductList;
 import com.mandy.innfedia.utils.CheckInternet;
 import com.mandy.innfedia.utils.ProgressBarClass;
-import com.mandy.innfedia.R;
-import com.mandy.innfedia.retrofit.ServiceGenerator;
-import com.mandy.innfedia.SpacesItemDecoration;
-import com.mandy.innfedia.homeFragment.adapter.ViewPagerAdapter;
+import com.mandy.innfedia.utils.Snack;
+import com.mandy.innfedia.utils.SpacesItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import retrofit2.Call;
-import retrofit2.Callback;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import retrofit2.Response;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements Controller.GetCategory, Controller.GetBanner, Controller.GetNewArrival, Controller.GetDisccountedItem, Controller.BestSell {
 
     View view;
     ArrayList<CategoryApi.Datum> arrayCategory = new ArrayList<>();
-    ArrayList<NewArivalApi.Datum> arrayNewArrivals = new ArrayList<>();
-    ArrayList<DiscountedApi.Datum> arrayDiscounted = new ArrayList<>();
+    ArrayList<GetProductList.Datum> arrayNewArrivals = new ArrayList<>();
+    ArrayList<GetProductList.Datum> arrayDiscounted = new ArrayList<>();
     ArrayList<BannerApi.Datum> arrayBanner = new ArrayList<>();
 
-    ArrayList<String> arrayList = new ArrayList<>();
-    ArrayList<Integer> arrayImage = new ArrayList<>();
     ViewPager viewPager;
     RecyclerView recyclerViewCategory, recyclerViewNew, recyclerViewDiscount, recyclerViewBestSell;
     FragmentManager manager;
     Context context;
+    Controller controller;
+    Dialog dialog;
+
+    @BindView(R.id.txtSeeNew)
+    TextView txtSeeNew;
+    @BindView(R.id.txtSeeDiscount)
+    TextView txtSeeDiscount;
+    Unbinder unbinder;
+    @BindView(R.id.txtSeeBest)
+    TextView txtSeeBest;
 
 
     public HomeFragment() {
@@ -70,10 +81,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        controller = new Controller((Controller.GetCategory) this, (Controller.GetBanner) this, (Controller.GetNewArrival) this, (Controller.GetDisccountedItem) this, (Controller.BestSell) this);
+        dialog = ProgressBarClass.showProgressDialog(context);
 
         init();
-
 
         ((NestedScrollView) view.findViewById(R.id.scrool_view)).post(new Runnable() {
             public void run() {
@@ -83,24 +94,23 @@ public class HomeFragment extends Fragment {
 
 
         if (CheckInternet.isInternetAvailable(context)) {
+            dialog.show();
             //get category item
-            getCategory();
+            controller.setGetCategory();
             //view pager offer list
-            getBanner();
-
+            controller.setGetBanner();
             //view the new arival
-            getNewArrivals();
+            controller.setGetNewArrival();
 
             //set the discount data
-            getDiscounted();
+            controller.setGetDisccountedItem();
+
+            controller.setBestSell();
         } else {
             context.startActivity(new Intent(context, NoInternetActivity.class));
         }
 
-//        //set data into best sell
-//        setBestSell();
-
-
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -140,6 +150,122 @@ public class HomeFragment extends Fragment {
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
+
+    }
+
+    // get the category
+    @Override
+    public void onSuccess(Response<CategoryApi> response) {
+        dialog.dismiss();
+        arrayCategory.clear();
+        if (response.body().getStatus().equals(200)) {
+            for (int i = 0; i < response.body().getData().size(); i++) {
+                arrayCategory.add(response.body().getData().get(i));
+
+                setCategoryData();
+            }
+        } else {
+            Snack.snackbar(getActivity(), response.body().getMessage());
+        }
+    }
+
+    // for banner
+    @Override
+    public void onSuccessBanner(Response<BannerApi> response) {
+        dialog.dismiss();
+        arrayBanner.clear();
+        if (response.body().getStatus() == 200) {
+            for (int i = 0; i < response.body().getData().size(); i++) {
+                arrayBanner.add(response.body().getData().get(i));
+            }
+            setOfferImage();
+
+        } else {
+            Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // for new arrivals
+    @Override
+    public void onSuccessNew(Response<GetProductList> response) {
+        dialog.dismiss();
+        arrayNewArrivals.clear();
+        if (response.body().getStatus().equals(200)) {
+            for (int i = 0; i < response.body().getData().size(); i++) {
+                arrayNewArrivals.add(response.body().getData().get(i));
+
+                setNewArivel();
+            }
+        } else {
+            Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onSuccessDiscont(Response<GetProductList> response) {
+        dialog.dismiss();
+        arrayDiscounted.clear();
+        if (response.body().getStatus().equals(200)) {
+            for (int i = 0; i < response.body().getData().size(); i++) {
+                arrayDiscounted.add(response.body().getData().get(i));
+
+                setDiscount();
+            }
+        } else {
+            Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    public void onSucessBest(Response<GetProductList> response) {
+        dialog.dismiss();
+        if (response.isSuccessful()) {
+            ArrayList<GetProductList.Datum> arrayList = new ArrayList<>();
+            if (response.body().getStatus() == 200) {
+                for (int i = 0; i < response.body().getData().size(); i++) {
+                    arrayList.add(response.body().getData().get(i));
+                }
+                setBestSell(arrayList);
+            }
+        } else {
+            Toast.makeText(context, "" + response.message(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void error(String error) {
+        dialog.dismiss();
+        Snack.snackbar(getActivity(), error);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick({R.id.txtSeeNew, R.id.txtSeeDiscount})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.txtSeeNew:
+                Intent intent = new Intent(context, ProductsActivity.class);
+                intent.putExtra("type", "0");
+                startActivity(intent);
+                break;
+            case R.id.txtSeeDiscount:
+                Intent intent1 = new Intent(context, ProductsActivity.class);
+                intent1.putExtra("type", "1");
+                startActivity(intent1);
+                break;
+        }
+    }
+
+    @OnClick(R.id.txtSeeBest)
+    public void onViewClicked() {
+        Intent intent1 = new Intent(context, ProductsActivity.class);
+        intent1.putExtra("type", "2");
+        startActivity(intent1);
 
     }
 
@@ -186,10 +312,10 @@ public class HomeFragment extends Fragment {
 
 
     //set the data into BestSell
-    private void setBestSell() {
+    private void setBestSell(ArrayList<GetProductList.Datum> arrayList) {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewBestSell.setLayoutManager(layoutManager);
-        BestSellAdapter bestSellAdapter = new BestSellAdapter(getContext(), arrayList, arrayImage, manager);
+        BestSellAdapter bestSellAdapter = new BestSellAdapter(context, arrayList, manager);
         recyclerViewBestSell.setAdapter(bestSellAdapter);
         recyclerViewBestSell.addItemDecoration(new SpacesItemDecoration(10));
 
@@ -200,148 +326,6 @@ public class HomeFragment extends Fragment {
     public void onAttach(Context context1) {
         super.onAttach(context1);
         context = context1;
-    }
-
-
-    //get category
-    private void getCategory() {
-        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-        Call<CategoryApi> call = apiInterface.getCategory();
-
-        final Dialog dialog = ProgressBarClass.showProgressDialog(context);
-        dialog.show();
-
-        call.enqueue(new Callback<CategoryApi>() {
-            @Override
-            public void onResponse(Call<CategoryApi> call, Response<CategoryApi> response) {
-                dialog.dismiss();
-                if (response.isSuccessful()) {
-                    arrayCategory.clear();
-                    if (response.body().getStatus().equals(200)) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            arrayCategory.add(response.body().getData().get(i));
-
-                            setCategoryData();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CategoryApi> call, Throwable t) {
-                dialog.dismiss();
-            }
-        });
-
-    }
-
-
-    //get the new arivals data
-    private void getNewArrivals() {
-        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-        Call<NewArivalApi> call = apiInterface.newArrivalsApi();
-
-        final Dialog dialog = ProgressBarClass.showProgressDialog(getContext());
-        dialog.show();
-
-        call.enqueue(new Callback<NewArivalApi>() {
-            @Override
-            public void onResponse(Call<NewArivalApi> call, Response<NewArivalApi> response) {
-                dialog.dismiss();
-                if (response.isSuccessful()) {
-                    arrayNewArrivals.clear();
-                    if (response.body().getStatus().equals(200)) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            arrayNewArrivals.add(response.body().getData().get(i));
-
-                            setNewArivel();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NewArivalApi> call, Throwable t) {
-                dialog.dismiss();
-            }
-        });
-
-    }
-
-    // get the discounted product
-    private void getDiscounted() {
-        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-        Call<DiscountedApi> call = apiInterface.getDiscountedapi();
-
-        final Dialog dialog = ProgressBarClass.showProgressDialog(getContext());
-        dialog.show();
-
-        call.enqueue(new Callback<DiscountedApi>() {
-            @Override
-            public void onResponse(Call<DiscountedApi> call, Response<DiscountedApi> response) {
-                dialog.dismiss();
-                if (response.isSuccessful()) {
-                    arrayDiscounted.clear();
-                    if (response.body().getStatus().equals(200)) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            arrayDiscounted.add(response.body().getData().get(i));
-
-                            setDiscount();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DiscountedApi> call, Throwable t) {
-                dialog.dismiss();
-                Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    // get the banner
-    private void getBanner() {
-        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-        Call<BannerApi> call = apiInterface.getBanner();
-        final Dialog dialog = ProgressBarClass.showProgressDialog(context);
-        dialog.show();
-        call.enqueue(new Callback<BannerApi>() {
-            @Override
-            public void onResponse(Call<BannerApi> call, Response<BannerApi> response) {
-                dialog.dismiss();
-                if (response.isSuccessful()) {
-                    arrayBanner.clear();
-                    if (response.body().getStatus() == 200) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            arrayBanner.add(response.body().getData().get(i));
-                        }
-                        setOfferImage();
-
-                    } else {
-                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BannerApi> call, Throwable t) {
-                dialog.dismiss();
-                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
 }

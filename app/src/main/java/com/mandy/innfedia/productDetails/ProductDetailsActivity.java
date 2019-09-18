@@ -16,6 +16,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
+import com.mandy.innfedia.addressActivity.AddressActivity;
+import com.mandy.innfedia.commentActivity.CommentActivity;
 import com.mandy.innfedia.commonActivity.NoInternetActivity;
 import com.mandy.innfedia.controller.Controller;
 import com.mandy.innfedia.productDetails.adapter.ColorAdapter;
@@ -23,7 +25,9 @@ import com.mandy.innfedia.productDetails.adapter.SeeRelatedItemAdapter;
 import com.mandy.innfedia.productDetails.adapter.SizeAdapter;
 import com.mandy.innfedia.productDetails.adapter.ViewPagerProductImageAdapter;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.SpacesItemDecoration;
+import com.mandy.innfedia.productDetails.apis.GetAddToCart;
+import com.mandy.innfedia.productDetails.apis.GetProductDetailsApi;
+import com.mandy.innfedia.utils.SpacesItemDecoration;
 import com.mandy.innfedia.utils.CheckInternet;
 import com.mandy.innfedia.utils.Config;
 import com.mandy.innfedia.utils.ProgressBarClass;
@@ -114,6 +118,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements Control
             startActivity(new Intent(this, NoInternetActivity.class));
         }
 
+        linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductDetailsActivity.this, CommentActivity.class);
+                intent.putExtra("pId", id);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -129,7 +141,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements Control
                 }
                 break;
             case R.id.btnBuynow:
-
+                Intent intent = new Intent(ProductDetailsActivity.this, AddressActivity.class);
+                intent.putExtra("Cid", id);
+                intent.putExtra("size", sizeId);
+                intent.putExtra("color", colorId);
+                startActivity(intent);
                 break;
         }
     }

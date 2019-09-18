@@ -66,6 +66,7 @@ public class TopWearAdapter extends RecyclerView.Adapter<TopWearAdapter.ViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductListActivity.class);
                 intent.putExtra("SubId", arrayList.get(i).getId().toString());
+                intent.putExtra("type", "1");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 

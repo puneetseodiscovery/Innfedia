@@ -49,6 +49,9 @@ public class BannerApi {
         @SerializedName("banner")
         @Expose
         private String banner;
+        @SerializedName("product_cat_ids")
+        @Expose
+        private String productCatIds;
 
         public Integer getId() {
             return id;
@@ -64,6 +67,14 @@ public class BannerApi {
 
         public void setBanner(String banner) {
             this.banner = banner;
+        }
+
+        public String getProductCatIds() {
+            return productCatIds;
+        }
+
+        public void setProductCatIds(String productCatIds) {
+            this.productCatIds = productCatIds;
         }
 
     }

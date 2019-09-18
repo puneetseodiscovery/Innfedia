@@ -13,6 +13,7 @@ public class ProgressBarClass {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
         dialog.setContentView(R.layout.custom_progress);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

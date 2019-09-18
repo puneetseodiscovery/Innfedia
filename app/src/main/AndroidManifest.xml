@@ -19,20 +19,49 @@
         android:testOnly="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".productList.ProductListActivity"></activity>
-        <activity android:name=".productDetails.ProductDetailsActivity" />
-        <activity android:name=".home2.SubCategoryActivity" />
-        <activity android:name=".addressActivity.addAddress.ADDAddressActivity" />
-        <activity android:name=".addressActivity.AddressActivity" />
-        <activity android:name=".myCart.MyCartActivity" />
-        <activity android:name=".myProfile.ProfileActivity" />
-        <activity android:name=".myOrderList.myorderdetails.OrderDetailsActivity" />
-        <activity android:name=".myOrderList.MyOrderListActivity" />
-        <activity android:name=".searchActivity.SearchActivity" />
-        <activity android:name=".commentActivity.CommentActivity" />
-        <activity android:name=".termsandcondition.TermsActivity" />
-        <activity android:name=".commonActivity.NoInternetActivity" />
-        <activity android:name=".forgotPassword.ForgotPasswordActivity" />
+        <activity android:name=".dashboardproducts.ProductsActivity"></activity>
+        <activity
+            android:name=".productList.ProductListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".productDetails.ProductDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".home2.SubCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".addressActivity.addAddress.ADDAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".addressActivity.AddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myCart.MyCartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myProfile.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myOrderList.myorderdetails.OrderDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".myOrderList.MyOrderListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".searchActivity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".commentActivity.CommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".termsandcondition.TermsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".commonActivity.NoInternetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".forgotPassword.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".commonActivity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

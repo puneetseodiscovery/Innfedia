@@ -1,17 +1,18 @@
 package com.mandy.innfedia.retrofit;
 
+import com.mandy.innfedia.commentActivity.CommentsApi;
 import com.mandy.innfedia.homeFragment.apis.BannerApi;
 import com.mandy.innfedia.homeFragment.apis.CategoryApi;
-import com.mandy.innfedia.homeFragment.apis.DiscountedApi;
 import com.mandy.innfedia.GetMeesageApi;
-import com.mandy.innfedia.productDetails.GetAddToCart;
+import com.mandy.innfedia.myOrderList.OrderListApi;
+import com.mandy.innfedia.myOrderList.myorderdetails.OrderDetailsApi;
+import com.mandy.innfedia.productDetails.apis.GetAddToCart;
 import com.mandy.innfedia.payment.PaymentProductApi;
-import com.mandy.innfedia.productDetails.GetProductDetailsApi;
+import com.mandy.innfedia.productDetails.apis.GetProductDetailsApi;
 import com.mandy.innfedia.addressActivity.GetAddressApi;
 import com.mandy.innfedia.productList.GetProductList;
 import com.mandy.innfedia.home2.GetSubCategoryApi;
 import com.mandy.innfedia.login.LoginApi;
-import com.mandy.innfedia.homeFragment.apis.NewArivalApi;
 import com.mandy.innfedia.myProfile.ProfileApi;
 import com.mandy.innfedia.signup.SignUpApi;
 import com.mandy.innfedia.signup.VerificationOtpApi;
@@ -21,9 +22,6 @@ import com.mandy.innfedia.myCart.topitems.GetTopDataApi;
 import com.mandy.innfedia.termsandcondition.TermsConditionApi;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
@@ -85,11 +83,11 @@ public interface ApiInterface {
 
     //get the new Arrival product
     @POST("new_arrivals")
-    Call<NewArivalApi> newArrivalsApi();
+    Call<GetProductList> newArrivalsApi();
 
     //get the Discounted product
     @POST("discounted_products")
-    Call<DiscountedApi> getDiscountedapi();
+    Call<GetProductList> getDiscountedapi();
 
 
     //sele banners
@@ -229,7 +227,9 @@ public interface ApiInterface {
     @POST("buy_products")
     Call<PaymentProductApi> getBuyItemsList(
             @Header("Authorization") String authorization,
-            @Query("product_id") String id
+            @Query("product_id") String id,
+            @Query("color") String color,
+            @Query("size") String size
     );
 
 
@@ -261,7 +261,57 @@ public interface ApiInterface {
 
     //Clear the cart
     @POST("empty_cart")
-    Call<GetMeesageApi>clearCart(
+    Call<GetMeesageApi> clearCart(
             @Header("Authorization") String authorization
     );
+
+    // get the banner product list
+    @POST("get_sales_banner_products")
+    Call<GetProductList> getBannerProductList(
+            @Query("product_cat_ids") String catIds
+    );
+
+    // get the Best sell product list
+    @POST("best_selling_products")
+    Call<GetProductList> getBestSell();
+
+
+    // get order list
+    @POST("get_order_list")
+    Call<OrderListApi> getOrderList(
+            @Header("Authorization") String authorization
+    );
+
+    //get my orderlist Details
+    @POST("deliver_order_details")
+    Call<OrderDetailsApi> getOrderDetails(
+            @Header("Authorization") String authorization,
+            @Query("order_id") String orderId
+    );
+
+
+    //get my orderlist Details
+    @POST("save_rating_reviews")
+    Call<GetMeesageApi> rateNow(
+            @Header("Authorization") String authorization,
+            @Query("product_id") String productId,
+            @Query("rating") String rating,
+            @Query("comment") String comment
+    );
+
+    //get comments list
+    @POST("get_products_reviews")
+    Call<CommentsApi> getComments(
+            @Header("Authorization") String authorization,
+            @Query("product_id") String productId
+    );
+
+
+    //get support
+    @POST("send_email_query")
+    Call<GetMeesageApi> support(
+            @Header("Authorization") String authorization,
+            @Query("content") String content
+    );
+
 }

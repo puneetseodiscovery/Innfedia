@@ -15,4 +15,6 @@
         android:visibility="visible"
         app:indicatorColor="@color/yellow"
         app:indicatorName="BallSpinFadeLoaderIndicator" />
+
+
 </RelativeLayout>

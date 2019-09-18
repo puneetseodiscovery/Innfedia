@@ -19,12 +19,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/topMargin"
         android:layout_toRightOf="@id/roundimageView"
-        android:text="Amit pandey"
         android:textColor="@color/black"
         android:textSize="@dimen/text"
         android:textStyle="bold" />
 
     <RatingBar
+        android:id="@+id/ratingbar"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/roundimageView"
         android:layout_margin="@dimen/padding"
-        android:text="@string/perviewDescrition"
         app:colorClickableText="@color/bule"
         app:trimCollapsedText="Read less"
         app:trimExpandedText="Read more"
@@ -49,9 +48,9 @@
         app:trimMode="trimModeLength" />
 
     <View
-        android:layout_below="@id/txtComment"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@id/txtComment"
         android:background="@color/gray" />
 
 

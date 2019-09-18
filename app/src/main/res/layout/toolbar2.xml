@@ -9,6 +9,8 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginRight="?android:attr/actionBarSize"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/subheading"
         android:textStyle="bold" />

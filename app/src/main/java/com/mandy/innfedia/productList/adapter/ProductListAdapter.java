@@ -31,13 +31,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     Context context;
     List<GetProductList.Datum> arrayList = new ArrayList<>();
-    String id;
 
 
-    public ProductListAdapter(Context context, List<GetProductList.Datum> arrayList, String id) {
+    public ProductListAdapter(Context context, List<GetProductList.Datum> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
-        this.id = id;
+
 
     }
 
@@ -55,7 +54,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         final GetProductList.Datum datum = arrayList.get(i);
 
         viewHolder.txtProductName.setText(datum.getTitle());
-        viewHolder.txtPrice.setText(Config.GET_RUPPESS_SYMBOL + datum.getPrice());
+        viewHolder.txtPrice.setText(Config.GET_RUPPESS_SYMBOL + datum.getSpecialPrice());
         viewHolder.ratingBar.setRating(Float.parseFloat(datum.getAvgRating()));
         viewHolder.txtRatingUser.setText(datum.getTotalUsers().toString());
 
@@ -77,7 +76,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
                 intent.putExtra("subId", datum.getId().toString());
-                intent.putExtra("Cid", id);
+                intent.putExtra("Cid", datum.getProductCatId().toString());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 

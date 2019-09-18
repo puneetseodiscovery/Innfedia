@@ -66,6 +66,17 @@ public class GetProductList {
         @SerializedName("total_users")
         @Expose
         private Integer totalUsers;
+        @SerializedName("product_cat_id")
+        @Expose
+        private Integer productCatId;
+
+        public Integer getProductCatId() {
+            return productCatId;
+        }
+
+        public void setProductCatId(Integer productCatId) {
+            this.productCatId = productCatId;
+        }
 
         public Integer getId() {
             return id;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.mandy.innfedia.commonActivity.NoInternetActivity;
 import com.mandy.innfedia.controller.Controller;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.SpacesItemDecoration;
+import com.mandy.innfedia.utils.SpacesItemDecoration;
 import com.mandy.innfedia.utils.CheckInternet;
 import com.mandy.innfedia.utils.ProgressBarClass;
 import com.mandy.innfedia.utils.SharedToken;
@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Response;
 
-public class ProductListActivity extends AppCompatActivity implements Controller.GetItemsList {
+public class ProductListActivity extends AppCompatActivity implements Controller.GetItemsList, Controller.GetBannerProduct {
 
     @BindView(R.id.tooolbar)
     Toolbar toolbar;
@@ -36,8 +36,7 @@ public class ProductListActivity extends AppCompatActivity implements Controller
     SharedToken sharedToken;
     Dialog dialog;
     Controller controller;
-    String id;
-
+    String id, type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +45,9 @@ public class ProductListActivity extends AppCompatActivity implements Controller
         ButterKnife.bind(this);
         dialog = ProgressBarClass.showProgressDialog(this);
         sharedToken = new SharedToken(this);
-        controller = new Controller(this);
+        controller = new Controller((Controller.GetItemsList) this, (Controller.GetBannerProduct) this);
         id = getIntent().getStringExtra("SubId");
-
+        type = getIntent().getStringExtra("type");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,13 +55,21 @@ public class ProductListActivity extends AppCompatActivity implements Controller
         textView.setText("Product list");
 
 
-        if (CheckInternet.isInternetAvailable(this)) {
-            dialog.show();
-            controller.setGetItemsList("Bearer " + sharedToken.getShared(), id);
+        if (type.equalsIgnoreCase("0")) {
+            if (CheckInternet.isInternetAvailable(this)) {
+                dialog.show();
+                controller.setGetBannerProduct(id);
+            } else {
+                startActivity(new Intent(this, NoInternetActivity.class));
+            }
         } else {
-            startActivity(new Intent(this, NoInternetActivity.class));
+            if (CheckInternet.isInternetAvailable(this)) {
+                dialog.show();
+                controller.setGetItemsList("Bearer " + sharedToken.getShared(), id);
+            } else {
+                startActivity(new Intent(this, NoInternetActivity.class));
+            }
         }
-
 
     }
 
@@ -92,7 +99,7 @@ public class ProductListActivity extends AppCompatActivity implements Controller
     private void setData(ArrayList<GetProductList.Datum> datum) {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerProduct.setLayoutManager(layoutManager);
-        ProductListAdapter adapter = new ProductListAdapter(this, datum,id);
+        ProductListAdapter adapter = new ProductListAdapter(this, datum);
         recyclerProduct.setAdapter(adapter);
         recyclerProduct.addItemDecoration(new SpacesItemDecoration(10));
     }
@@ -101,5 +108,24 @@ public class ProductListActivity extends AppCompatActivity implements Controller
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+
+    //get the banner products list
+    @Override
+    public void onSucessBanners(Response<GetProductList> response) {
+        dialog.dismiss();
+        ArrayList<GetProductList.Datum> arrayList = new ArrayList<>();
+        for (int i = 0; i < response.body().getData().size(); i++) {
+            arrayList.add(response.body().getData().get(i));
+            setData(arrayList);
+
+        }
+    }
+
+    @Override
+    public void errorBanner(String error) {
+        dialog.dismiss();
+        Snack.snackbar(ProductListActivity.this, error);
     }
 }

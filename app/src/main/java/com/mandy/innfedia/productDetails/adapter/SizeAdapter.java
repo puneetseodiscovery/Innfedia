@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mandy.innfedia.productDetails.GetProductDetailsApi;
+import com.mandy.innfedia.productDetails.apis.GetProductDetailsApi;
 import com.mandy.innfedia.R;
 
 import java.util.List;

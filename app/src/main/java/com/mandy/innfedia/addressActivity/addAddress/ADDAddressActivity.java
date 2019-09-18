@@ -52,6 +52,7 @@ public class ADDAddressActivity extends AppCompatActivity implements Controller.
     EditText edtNear;
     @BindView(R.id.btnAdd)
     Button btnAdd;
+    String id = "", size, color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,8 @@ public class ADDAddressActivity extends AppCompatActivity implements Controller.
         sharedToken = new SharedToken(this);
         controller = new Controller(this);
         dialog = ProgressBarClass.showProgressDialog(this);
+
+        id = getIntent().getStringExtra("Cid");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -82,13 +85,13 @@ public class ADDAddressActivity extends AppCompatActivity implements Controller.
 
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(mobile) || TextUtils.isEmpty(postcode) || TextUtils.isEmpty(town) || TextUtils.isEmpty(state) || TextUtils.isEmpty(flat)
                 || TextUtils.isEmpty(near)) {
-            getTextError(edtName);
-            getTextError(edtMobile);
-            getTextError(edtPostcode);
-            getTextError(edtTown);
-            getTextError(edtState);
-            getTextError(edtFlat);
-            getTextError(edtNear);
+            getTextError(edtName, 20);
+            getTextError(edtMobile, 10);
+            getTextError(edtPostcode, 6);
+            getTextError(edtTown, 20);
+            getTextError(edtState, 20);
+            getTextError(edtFlat, 30);
+            getTextError(edtNear, 50);
         } else if (mobile.length() != 10) {
             edtMobile.setError("Enter 10 digit mobile number");
             edtMobile.requestFocus();
@@ -104,8 +107,8 @@ public class ADDAddressActivity extends AppCompatActivity implements Controller.
     }
 
     //check validation for edit text
-    private void getTextError(final EditText editText) {
-        if (TextUtils.isEmpty(editText.getText().toString()) || editText.getText().toString().length() > 30) {
+    private void getTextError(final EditText editText, int number) {
+        if (TextUtils.isEmpty(editText.getText().toString()) || editText.getText().toString().length() > number) {
             editText.setError("Enter this field");
         }
 
@@ -116,9 +119,17 @@ public class ADDAddressActivity extends AppCompatActivity implements Controller.
     public void onSucess(Response<GetMeesageApi> response) {
         dialog.dismiss();
         if (response.body().getStatus() == 200) {
-            Intent intent = new Intent(ADDAddressActivity.this, AddressActivity.class);
-            intent.putExtra("Cid", getIntent().getStringExtra("Cid"));
-            startActivity(intent);
+            if (id.equals("0")) {
+                Intent intent = new Intent(this, ADDAddressActivity.class);
+                intent.putExtra("Cid", id);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, ADDAddressActivity.class);
+                intent.putExtra("Cid", id);
+                intent.putExtra("size", getIntent().getStringExtra("size"));
+                intent.putExtra("color", getIntent().getStringExtra("color"));
+                startActivity(intent);
+            }
         } else {
             Snack.snackbar(ADDAddressActivity.this, response.body().getMessage());
         }

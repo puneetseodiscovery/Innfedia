@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor" tools:ignore="NewApi">@color/toolbar</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/arial</item>
+
 
     </style>
 

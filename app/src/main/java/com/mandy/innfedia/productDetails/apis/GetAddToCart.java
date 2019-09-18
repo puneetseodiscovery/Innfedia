@@ -1,4 +1,4 @@
-package com.mandy.innfedia.productDetails;
+package com.mandy.innfedia.productDetails.apis;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

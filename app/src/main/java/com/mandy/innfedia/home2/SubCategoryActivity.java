@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.mandy.innfedia.commonActivity.NoInternetActivity;
 import com.mandy.innfedia.controller.Controller;
 import com.mandy.innfedia.R;
-import com.mandy.innfedia.SpacesItemDecoration;
+import com.mandy.innfedia.utils.SpacesItemDecoration;
 import com.mandy.innfedia.utils.CheckInternet;
 import com.mandy.innfedia.utils.ProgressBarClass;
 import com.mandy.innfedia.utils.SharedToken;
