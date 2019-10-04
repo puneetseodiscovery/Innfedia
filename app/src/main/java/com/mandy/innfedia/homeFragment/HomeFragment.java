@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,12 @@ public class HomeFragment extends Fragment implements Controller.GetCategory, Co
     Unbinder unbinder;
     @BindView(R.id.txtSeeBest)
     TextView txtSeeBest;
+    @BindView(R.id.linearNew)
+    LinearLayout linearNew;
+    @BindView(R.id.linearDiscount)
+    LinearLayout linearDiscount;
+    @BindView(R.id.linearBest)
+    LinearLayout linearBest;
 
 
     public HomeFragment() {
@@ -189,13 +196,16 @@ public class HomeFragment extends Fragment implements Controller.GetCategory, Co
     @Override
     public void onSuccessNew(Response<GetProductList> response) {
         dialog.dismiss();
+        if (response.body().getData().isEmpty()) {
+            linearNew.setVisibility(View.GONE);
+        }
         arrayNewArrivals.clear();
         if (response.body().getStatus().equals(200)) {
             for (int i = 0; i < response.body().getData().size(); i++) {
                 arrayNewArrivals.add(response.body().getData().get(i));
-
                 setNewArivel();
             }
+
         } else {
             Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -204,13 +214,18 @@ public class HomeFragment extends Fragment implements Controller.GetCategory, Co
     @Override
     public void onSuccessDiscont(Response<GetProductList> response) {
         dialog.dismiss();
+        if (response.body().getData().isEmpty()) {
+            linearDiscount.setVisibility(View.GONE);
+        }
         arrayDiscounted.clear();
         if (response.body().getStatus().equals(200)) {
+
             for (int i = 0; i < response.body().getData().size(); i++) {
                 arrayDiscounted.add(response.body().getData().get(i));
-
                 setDiscount();
             }
+
+
         } else {
             Toast.makeText(getContext(), "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -220,6 +235,10 @@ public class HomeFragment extends Fragment implements Controller.GetCategory, Co
     @Override
     public void onSucessBest(Response<GetProductList> response) {
         dialog.dismiss();
+        if (response.body().getData().isEmpty()) {
+            linearBest.setVisibility(View.GONE);
+        }
+
         if (response.isSuccessful()) {
             ArrayList<GetProductList.Datum> arrayList = new ArrayList<>();
             if (response.body().getStatus() == 200) {
@@ -228,6 +247,7 @@ public class HomeFragment extends Fragment implements Controller.GetCategory, Co
                 }
                 setBestSell(arrayList);
             }
+
         } else {
             Toast.makeText(context, "" + response.message(), Toast.LENGTH_SHORT).show();
         }

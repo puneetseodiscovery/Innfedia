@@ -120,14 +120,15 @@ public class ADDAddressActivity extends AppCompatActivity implements Controller.
         dialog.dismiss();
         if (response.body().getStatus() == 200) {
             if (id.equals("0")) {
-                Intent intent = new Intent(this, ADDAddressActivity.class);
+                Intent intent = new Intent(this, AddressActivity.class);
                 intent.putExtra("Cid", id);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(this, ADDAddressActivity.class);
+                Intent intent = new Intent(this, AddressActivity.class);
                 intent.putExtra("Cid", id);
                 intent.putExtra("size", getIntent().getStringExtra("size"));
                 intent.putExtra("color", getIntent().getStringExtra("color"));
+                intent.putExtra("quan", getIntent().getStringExtra("quan"));
                 startActivity(intent);
             }
         } else {

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.mandy.innfedia.controller.Controller;
@@ -44,7 +45,6 @@ public class TermsActivity extends AppCompatActivity implements Controller.getTe
         if (type.equalsIgnoreCase("T")) {
             textView.setText("Privacy policy");
         } else {
-
             textView.setText("Terms & Condition");
         }
 
@@ -62,13 +62,15 @@ public class TermsActivity extends AppCompatActivity implements Controller.getTe
     public void onSucess(Response<TermsConditionApi> response) {
         dialog.dismiss();
         if (response.body().getStatus() == 200) {
-            if (type.equalsIgnoreCase("T")) {
-                txterms.setText(response.body().getData().get(0).getPrivecyPolicy());
-
-            } else {
-                txterms.setText(response.body().getData().get(0).getTermsAndConditions());
-
+            for (int i = 0; i < response.body().getData().size(); i++) {
+                TermsConditionApi.Datum datum = response.body().getData().get(i);
+                if (type.equalsIgnoreCase("T")) {
+                    txterms.setText(Html.fromHtml(datum.getTermsAndConditions()));
+                } else {
+                    txterms.setText(Html.fromHtml(datum.getPrivecyPolicy()));
+                }
             }
+
         }
     }
 

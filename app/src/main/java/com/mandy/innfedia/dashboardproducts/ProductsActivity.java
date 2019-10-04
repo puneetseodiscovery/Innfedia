@@ -8,8 +8,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mandy.innfedia.R;
+import com.mandy.innfedia.utils.SharedToken;
 import com.mandy.innfedia.utils.SpacesItemDecoration;
 import com.mandy.innfedia.commonActivity.NoInternetActivity;
 import com.mandy.innfedia.controller.Controller;
@@ -25,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Response;
 
-public class ProductsActivity extends AppCompatActivity implements Controller.GetNewArrival, Controller.GetDisccountedItem, Controller.BestSell {
+public class ProductsActivity extends AppCompatActivity implements Controller.GetNewArrival, Controller.GetDisccountedItem, Controller.BestSell, Controller.GetSearchedList {
     @BindView(R.id.tooolbar)
     Toolbar toolbar;
     @BindView(R.id.textView)
@@ -36,15 +38,17 @@ public class ProductsActivity extends AppCompatActivity implements Controller.Ge
 
     Dialog dialog;
     Controller controller;
-    String type;
+    String type, id;
+    SharedToken sharedToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
         ButterKnife.bind(this);
-        controller = new Controller((Controller.GetNewArrival) this, (Controller.GetDisccountedItem) this, (Controller.BestSell) this);
+        controller = new Controller((Controller.GetNewArrival) this, (Controller.GetDisccountedItem) this, (Controller.BestSell) this, (Controller.GetSearchedList) this);
         dialog = ProgressBarClass.showProgressDialog(this);
+        sharedToken = new SharedToken(this);
         type = getIntent().getStringExtra("type");
 
 
@@ -67,6 +71,13 @@ public class ProductsActivity extends AppCompatActivity implements Controller.Ge
             if (type.equalsIgnoreCase("2")) {
                 controller.setBestSell();
                 textView.setText("Best sell product list");
+            }
+            if (type.equalsIgnoreCase("3")) {
+                id = getIntent().getStringExtra("id");
+                dialog.show();
+                controller.setGetSearchedList("Bearer " + sharedToken.getShared(), id);
+                textView.setText("Searched product list");
+
             }
 
         } else {
@@ -127,6 +138,23 @@ public class ProductsActivity extends AppCompatActivity implements Controller.Ge
             Snack.snackbar(ProductsActivity.this, response.body().getMessage());
         }
 
+    }
+
+    @Override
+    public void onSucessSearch(Response<GetProductList> response) {
+        dialog.dismiss();
+        if (response.isSuccessful()) {
+            if (response.body().getStatus() == 200) {
+                ArrayList<GetProductList.Datum> arrayList = new ArrayList<>();
+                for (int i = 0; i < response.body().getData().size(); i++) {
+                    arrayList.add(response.body().getData().get(i));
+                    setData(arrayList);
+
+                }
+            } else {
+                Toast.makeText(this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

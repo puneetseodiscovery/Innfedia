@@ -16,6 +16,7 @@ import com.mandy.innfedia.payment.PaymentProductApi;
 import com.mandy.innfedia.productDetails.apis.GetProductDetailsApi;
 import com.mandy.innfedia.retrofit.ApiInterface;
 import com.mandy.innfedia.retrofit.ServiceGenerator;
+import com.mandy.innfedia.searchActivity.SearchListApi;
 import com.mandy.innfedia.termsandcondition.TermsConditionApi;
 import com.mandy.innfedia.home2.GetSubCategoryApi;
 import com.mandy.innfedia.productList.GetProductList;
@@ -60,7 +61,8 @@ public class Controller {
     public RateNow rateNow;
     public CommentsList commentsList;
     public Support support;
-
+    public GetSearchList getSearchList;
+    public GetSearchedList getSearchedList;
 
 
 
@@ -132,10 +134,11 @@ public class Controller {
 
     /*+++++++++++++++++++++GET New Arrival ++++++++++++++++++++*/
 
-    public Controller(GetNewArrival getNewArrival1, GetDisccountedItem getDisccountedItem1, BestSell bestSell1) {
+    public Controller(GetNewArrival getNewArrival1, GetDisccountedItem getDisccountedItem1, BestSell bestSell1, GetSearchedList getSearchedList1) {
         getNewArrival = getNewArrival1;
         getDisccountedItem = getDisccountedItem1;
         bestSell = bestSell1;
+        getSearchedList = getSearchedList1;
     }
 
     public void setGetNewArrival() {
@@ -237,9 +240,9 @@ public class Controller {
         clearCart = clearCart1;
     }
 
-    public void getBuyItemsList(String authorization, String id, String color, String size) {
+    public void getBuyItemsList(String authorization, String id, String color, String size,String quantity) {
         ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
-        Call<PaymentProductApi> call = apiInterface.getBuyItemsList(authorization, id, color, size);
+        Call<PaymentProductApi> call = apiInterface.getBuyItemsList(authorization, id, color, size,quantity);
         call.enqueue(new Callback<PaymentProductApi>() {
             @Override
             public void onResponse(Call<PaymentProductApi> call, Response<PaymentProductApi> response) {
@@ -982,5 +985,59 @@ public class Controller {
         void error(String error);
     }
     /*++++++++++++++++++++++END++++++++++++*/
+
+    /*+++++++++++++++++Search list+++++++++++++++*/
+
+    public Controller(GetSearchList getSearchList1) {
+        getSearchList = getSearchList1;
+    }
+
+    public void setGetSearchList(String token) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<SearchListApi> call = apiInterface.searchList(token);
+        call.enqueue(new Callback<SearchListApi>() {
+            @Override
+            public void onResponse(Call<SearchListApi> call, Response<SearchListApi> response) {
+                getSearchList.onSucess(response);
+            }
+
+            @Override
+            public void onFailure(Call<SearchListApi> call, Throwable t) {
+                getSearchList.error(t.getMessage());
+            }
+        });
+    }
+
+    public interface GetSearchList {
+        void onSucess(Response<SearchListApi> response);
+
+        void error(String error);
+    }
+    /*+++++++++++++++END+++++++++++++++++++++++++*/
+
+    /*++++++++++++++++get seared result++++++++++++*/
+
+    public void setGetSearchedList(String token, String id) {
+        ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
+        Call<GetProductList> call = apiInterface.getAllsearch(token, id);
+        call.enqueue(new Callback<GetProductList>() {
+            @Override
+            public void onResponse(Call<GetProductList> call, Response<GetProductList> response) {
+                getSearchedList.onSucessSearch(response);
+            }
+
+            @Override
+            public void onFailure(Call<GetProductList> call, Throwable t) {
+                getSearchedList.error(t.getMessage());
+            }
+        });
+    }
+
+    public interface GetSearchedList {
+        void onSucessSearch(Response<GetProductList> response);
+
+        void error(String error);
+    }
+    /*++++++++++++++++++END+++++++++++++=*/
 
 }

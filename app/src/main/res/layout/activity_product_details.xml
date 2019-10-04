@@ -10,8 +10,15 @@
     <include
         android:id="@+id/tooolbar"
         layout="@layout/toolbar2" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager2"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScoll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tooolbar"

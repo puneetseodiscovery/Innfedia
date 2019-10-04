@@ -83,7 +83,7 @@ public class PaymentActivity extends AppCompatActivity implements Controller.Buy
     JSONArray jsonArray;
     ArrayList<HashMap> arrayList = new ArrayList<>();
     ArrayList<PaymentProductApi.TotalCartProduct> products = new ArrayList<>();
-    String color = "", size = "";
+    String color = "", size = "", quan = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +105,11 @@ public class PaymentActivity extends AppCompatActivity implements Controller.Buy
         if (!Cid.equals("0")) {
             color = getIntent().getStringExtra("color");
             size = getIntent().getStringExtra("size");
+            quan = getIntent().getStringExtra("quan");
         }
 
         if (CheckInternet.isInternetAvailable(this)) {
-            controller.getBuyItemsList(token, Cid, color, size);
+            controller.getBuyItemsList(token, Cid, color, size, quan);
         } else {
             startActivity(new Intent(this, NoInternetActivity.class));
         }

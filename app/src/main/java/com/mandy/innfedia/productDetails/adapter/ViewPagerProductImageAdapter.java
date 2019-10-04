@@ -11,12 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.mandy.innfedia.myCart.MyCartActivity;
+import com.mandy.innfedia.productDetails.ProductDetailsActivity;
 import com.mandy.innfedia.productDetails.apis.GetProductDetailsApi;
 import com.mandy.innfedia.R;
 import com.mandy.innfedia.utils.Config;
@@ -28,6 +31,7 @@ public class ViewPagerProductImageAdapter extends PagerAdapter {
 
     List<GetProductDetailsApi.ProductImage> arrayList;
     Context context;
+    boolean abc = false;
 
     public ViewPagerProductImageAdapter(Context context, List<GetProductDetailsApi.ProductImage> arrayList) {
         this.context = context;
@@ -73,6 +77,22 @@ public class ViewPagerProductImageAdapter extends PagerAdapter {
             }).into(trailimg);
         }
         ((ViewPager) container).addView(itemview);
+
+        trailimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (abc == false) {
+                    ProductDetailsActivity.viewPager2.setVisibility(View.VISIBLE);
+                    ProductDetailsActivity.nestedScrollView.setVisibility(View.GONE);
+                    abc = true;
+                    Toast.makeText(context, "Click again to exit full screen mode", Toast.LENGTH_SHORT).show();
+                } else {
+                    ProductDetailsActivity.viewPager2.setVisibility(View.GONE);
+                    ProductDetailsActivity.nestedScrollView.setVisibility(View.VISIBLE);
+                    abc = false;
+                }
+            }
+        });
 
         return itemview;
     }

@@ -24,4 +24,5 @@
     <string name="Goto">Go to the Login Screen </string>
     <string name="noInternet">No Internet Connection</string>
     <string name="rs">\u20B9</string>
+    <string name="quantity">Enter your product quantity</string>
 </resources>

@@ -48,7 +48,7 @@ public class AddressActivity extends AppCompatActivity implements Controller.Get
     SharedToken sharedToken;
     Dialog dialog;
     String address, id;
-    String size = "", color = "";
+    String size = "", color = "", quan = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,8 @@ public class AddressActivity extends AppCompatActivity implements Controller.Get
         if (!id.equals("0")) {
             size = getIntent().getStringExtra("size");
             color = getIntent().getStringExtra("color");
+            quan = getIntent().getStringExtra("quan");
+
         }
 
         setSupportActionBar(toolbar);
@@ -92,6 +94,7 @@ public class AddressActivity extends AppCompatActivity implements Controller.Get
                     intent.putExtra("Cid", id);
                     intent.putExtra("size", size);
                     intent.putExtra("color", color);
+                    intent.putExtra("quan", quan);
                     startActivity(intent);
                 }
                 break;
@@ -107,6 +110,7 @@ public class AddressActivity extends AppCompatActivity implements Controller.Get
                     intent1.putExtra("Address", address);
                     intent1.putExtra("size", size);
                     intent1.putExtra("color", color);
+                    intent1.putExtra("quan", quan);
                     startActivity(intent1);
                 }
                 break;

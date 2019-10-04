@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -87,6 +90,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements Control
     @BindView(R.id.recyclerRelated)
     RecyclerView recyclerRelated;
 
+    public static ViewPager viewPager2;
+    public static NestedScrollView nestedScrollView;
+
     Controller controller;
     SharedToken sharedToken;
     Dialog dialog;
@@ -100,6 +106,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements Control
         sharedToken = new SharedToken(this);
         dialog = ProgressBarClass.showProgressDialog(this);
         controller = new Controller((Controller.GetProductDetails) this, (Controller.GetRelatedItems) this, (Controller.AddToCart) this);
+        viewPager2 = (ViewPager) findViewById(R.id.viewPager2);
+        nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScoll);
+
 
         token = "Bearer " + sharedToken.getShared();
         id = getIntent().getStringExtra("subId");
@@ -141,11 +150,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Control
                 }
                 break;
             case R.id.btnBuynow:
-                Intent intent = new Intent(ProductDetailsActivity.this, AddressActivity.class);
-                intent.putExtra("Cid", id);
-                intent.putExtra("size", sizeId);
-                intent.putExtra("color", colorId);
-                startActivity(intent);
+                Adddialog();
                 break;
         }
     }
@@ -233,6 +238,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements Control
 
         adapter.registerDataSetObserver(circleindecator.getDataSetObserver());
 
+        viewPager2.setAdapter(adapter);
+
     }
 
 
@@ -291,5 +298,44 @@ public class ProductDetailsActivity extends AppCompatActivity implements Control
         });
     }
 
+
+    private void Adddialog() {
+        final EditText editText;
+        Button btnAdd, btnCancel;
+
+        final Dialog quantityDialog = new Dialog(this);
+        quantityDialog.setCancelable(false);
+        quantityDialog.setCanceledOnTouchOutside(false);
+        quantityDialog.setContentView(R.layout.custom_quantity);
+        editText = quantityDialog.findViewById(R.id.edtQuantity);
+        btnAdd = quantityDialog.findViewById(R.id.btnAdd);
+        btnCancel = quantityDialog.findViewById(R.id.btnCancel);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    editText.setError("Enter the quantity");
+                } else {
+                    Intent intent = new Intent(ProductDetailsActivity.this, AddressActivity.class);
+                    intent.putExtra("Cid", id);
+                    intent.putExtra("size", sizeId);
+                    intent.putExtra("color", colorId);
+                    intent.putExtra("quan", editText.getText().toString());
+                    startActivity(intent);
+                    quantityDialog.dismiss();
+                }
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantityDialog.cancel();
+            }
+        });
+        quantityDialog.show();
+
+    }
 
 }

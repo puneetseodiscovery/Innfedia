@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -47,7 +48,9 @@ import com.mandy.innfedia.utils.Snack;
 import com.mandy.innfedia.utils.UtilDialog;
 import com.mandy.innfedia.homeFragment.HomeFragment;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
@@ -80,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(MainActivity.this, new Crashlytics());
         setContentView(R.layout.activity_main);
-
 
         // find all id
         init();

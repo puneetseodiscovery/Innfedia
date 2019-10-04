@@ -14,6 +14,7 @@ import com.mandy.innfedia.productList.GetProductList;
 import com.mandy.innfedia.home2.GetSubCategoryApi;
 import com.mandy.innfedia.login.LoginApi;
 import com.mandy.innfedia.myProfile.ProfileApi;
+import com.mandy.innfedia.searchActivity.SearchListApi;
 import com.mandy.innfedia.signup.SignUpApi;
 import com.mandy.innfedia.signup.VerificationOtpApi;
 import com.mandy.innfedia.myCart.exploremore.GetExploreMoreData;
@@ -229,7 +230,8 @@ public interface ApiInterface {
             @Header("Authorization") String authorization,
             @Query("product_id") String id,
             @Query("color") String color,
-            @Query("size") String size
+            @Query("size") String size,
+            @Query("quantity")String quantity
     );
 
 
@@ -312,6 +314,18 @@ public interface ApiInterface {
     Call<GetMeesageApi> support(
             @Header("Authorization") String authorization,
             @Query("content") String content
+    );
+
+    //get support
+    @POST("getAllSearchCats")
+    Call<SearchListApi> searchList(
+            @Header("Authorization") String authorization
+    );
+
+    @POST("getAllSearchProducts")
+    Call<GetProductList> getAllsearch(
+            @Header("Authorization") String token,
+            @Query("product_cat_id") String id
     );
 
 }

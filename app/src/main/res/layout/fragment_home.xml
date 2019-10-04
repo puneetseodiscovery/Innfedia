@@ -51,6 +51,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/linearNew"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
@@ -97,6 +98,7 @@
 
 
             <LinearLayout
+                android:id="@+id/linearDiscount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
@@ -142,6 +144,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearBest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"

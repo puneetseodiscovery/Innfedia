@@ -1,27 +1,52 @@
 package com.mandy.innfedia.commonActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import android.support.v7.app.AppCompatActivity;
-
-
+import com.mandy.innfedia.GetMeesageApi;
 import com.mandy.innfedia.R;
+import com.mandy.innfedia.controller.Controller;
+import com.mandy.innfedia.utils.CheckInternet;
+import com.mandy.innfedia.utils.ProgressBarClass;
+import com.mandy.innfedia.utils.SharedToken;
+import com.mandy.innfedia.utils.Snack;
 
-public class CustmerActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit2.Response;
+
+public class CustmerActivity extends AppCompatActivity implements Controller.Support {
 
     Toolbar toolbar;
     TextView textView;
     TextView textEmail1, textPhone1, textPhone2;
+    SharedToken sharedToken;
+    Dialog dialog;
+    Controller controller;
+    @BindView(R.id.edtComment)
+    EditText editText;
+    @BindView(R.id.btnMail)
+    Button btnMail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custmer);
+        ButterKnife.bind(this);
+        controller = new Controller(this);
+        sharedToken = new SharedToken(this);
+        dialog = ProgressBarClass.showProgressDialog(this);
+
 
         init();
 
@@ -49,6 +74,7 @@ public class CustmerActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void init() {
@@ -62,5 +88,38 @@ public class CustmerActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onSucess(Response<GetMeesageApi> response) {
+        dialog.dismiss();
+
+        if (response.isSuccessful()) {
+            if (response.body().getStatus() == 200) {
+                Snack.snackbar(CustmerActivity.this, response.body().getMessage());
+            } else {
+                Snack.snackbar(CustmerActivity.this, response.body().getMessage());
+            }
+        }
+    }
+
+    @Override
+    public void error(String error) {
+        dialog.dismiss();
+        Snack.snackbar(CustmerActivity.this, error);
+    }
+
+    @OnClick(R.id.btnMail)
+    public void onViewClicked() {
+        if (TextUtils.isEmpty(editText.getText().toString())) {
+            editText.setError("Empty field");
+        } else {
+            if (CheckInternet.isInternetAvailable(this)) {
+                dialog.show();
+                controller.setSupport("Bearer " + sharedToken.getShared(), editText.getText().toString());
+            } else {
+                startActivity(new Intent(this, NoInternetActivity.class));
+            }
+        }
     }
 }
